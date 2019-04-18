@@ -22,8 +22,8 @@ monitor = HDMI1
 monitor-fallback = eDP1
 
 bottom = true
-width = 2140
-offset-x = 10
+width = 2130
+offset-x = 15
 offset-y = 10
 
 border-size = 3
@@ -36,7 +36,8 @@ tray-position = center
 locale = en_GB.UTF-8
 enable_ipc = true
 
-modules-right = battery network volume date
+modules-left = cpu memory
+modules-right = battery xbacklight network volume date
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -45,11 +46,16 @@ underline-size = 0
 underline-color = ${colors.white}
 
 font-0 = "monospace:size=12:style=Bold;2"
-font-1 = "FontAwesome:size=12;2"
+font-1 = "FontAwesome:style=solid:size=12;2"
+font-2 = "FontAwesome:style=regular:size=12;2"
+
+[bar/projector]
+inherit = bar/xmonad
+width = 1570
 
 [module/date]
 type = internal/date
-date = %{F#928374}%{F-} %H:%M %{F#928374}%{F-} %d.%m.%y
+date = %{F#928374}%{F-} %d.%m.%y %{F#928374}%{F-} %H:%M
 interval = 5
 format-underline = ${colors.white}
 ;format-background = ${colors.black}
@@ -57,6 +63,44 @@ format-foreground = ${colors.foreground}
 format-padding = 2
 
 label-separator = |
+
+[module/cpu]
+type = internal/cpu
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format = <label> <ramp-coreload>
+
+; Available tokens:
+;   %percentage% (default) - total cpu load
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label = %{F#928374}%{F-} %percentage:3%
+
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+
+label = %{F#928374}%{F-} %gb_used%/%gb_free% %percentage_used:3%
 
 
 [module/volume]
@@ -106,7 +150,14 @@ format-muted-padding = 2
 
 format-padding = 2
 
+[module/xbacklight]
+type = internal/xbacklight
+enable-scroll = true
+format = %{F#928374}<ramp>%{F-}
 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 
 
 [module/battery]
@@ -159,17 +210,17 @@ format-discharging = <ramp-capacity> <label-discharging>
 ;   %percentage% (default)
 ;   %time%
 ;   %consumption% (shows current charge rate in watts)
-label-charging = %percentage%
+label-charging = %percentage:3%
 
 ; Available tokens:
 ;   %percentage% (default)
 ;   %time%
 ;   %consumption% (shows current discharge rate in watts)
-label-discharging = %percentage% %time% %consumption%
+label-discharging = %percentage:3% %time% %consumption%
 
 ; Available tokens:
 ;   %percentage% (default)
-label-full =  %percentage%
+label-full =  %percentage:3%
 
 ; Only applies if <ramp-capacity> is used
 ramp-capacity-4 = 
