@@ -1,0 +1,233 @@
+{ pkgs, lib, ... }:
+
+let
+  gruvbox = import ../gruvbox.nix {};
+
+  useCustomI3 = false;
+in rec {
+  home.file.".local/bin/swapMonitors" = {
+    executable = true;
+    text = ''
+      #!${pkgs.bash}/bin/bash
+
+      DISPLAY_CONFIG=($(i3-msg -t get_outputs | ${pkgs.jq}/bin/jq -r '.[]|"\(.name):\(.current_workspace)"'))
+
+      for ROW in "''${DISPLAY_CONFIG[@]}"
+      do
+        IFS=':'
+        read -ra CONFIG <<< "''${ROW}"
+        if [ "''${CONFIG[0]}" != "null" ] && [ "''${CONFIG[1]}" != "null" ]; then
+          echo "moving ''${CONFIG[1]} right..."
+          i3-msg -- workspace --no-auto-back-and-forth "''${CONFIG[1]}"
+          i3-msg -- move workspace to output right	
+        fi
+      done
+    '';
+  };
+
+  xsession.enable = true;
+  xsession.windowManager.i3 = rec {
+    enable = true;
+
+    package = if useCustomI3 then 
+        pkgs.i3-gaps.overrideAttrs (old: old // {
+          nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.pcre2 ];
+          src = ~/src/i3; 
+        }) else pkgs.i3-gaps;
+
+
+    config = rec {
+      modifier = "Mod4";
+
+      terminal = "kitty";
+
+      gaps = {
+        inner = 5;
+        smartBorders = "on";
+        smartGaps = true;
+      };
+
+      colors = {
+        background = gruvbox.dark1;
+        focused = {
+          border = gruvbox.dark3;
+          background = gruvbox.dark1;
+          childBorder = gruvbox.dark3;
+          indicator = gruvbox.dark3;
+          text = gruvbox.light1;
+        };
+        focusedInactive = {
+          border = gruvbox.dark1;
+          background = gruvbox.dark1;
+          childBorder = gruvbox.dark1;
+          indicator = gruvbox.dark1;
+          text = gruvbox.light2;
+        };
+        unfocused = {
+          border = gruvbox.dark1;
+          background = gruvbox.dark1;
+          childBorder = gruvbox.dark2;
+          indicator = gruvbox.light2;
+          text = gruvbox.light2;
+        };
+
+      };
+
+      bars = [
+        {
+          mode = "dock";
+          hiddenState = "hide";
+          position = "bottom";
+          workspaceButtons = true;
+          workspaceNumbers = true;
+
+          statusCommand = "${pkgs.i3status}/bin/i3status";
+          trayOutput = "primary";
+
+          fonts = {
+            names = [ "Fira Code Regular" ];
+            size = 10.0;
+          };
+
+          colors = {
+            background = gruvbox.dark0;
+            statusline = gruvbox.light1;
+            separator = gruvbox.dark2;
+
+            focusedWorkspace = { border = gruvbox.neutral_blue; background = gruvbox.neutral_blue; text = gruvbox.light1; };
+            activeWorkspace = { border = gruvbox.bright_blue; background = gruvbox.bright_blue; text = gruvbox.light1; };
+            inactiveWorkspace = { border = gruvbox.dark2; background = gruvbox.dark2; text = gruvbox.light1; };
+            urgentWorkspace = { border = gruvbox.neutral_red; background = gruvbox.neutral_red; text = gruvbox.dark2; };
+          };
+        }
+      ];
+
+      startup = let
+        emre-flower = builtins.fetchurl {
+          name = "emre-flower.jpg";
+          url = "https://unsplash.com/photos/EfyQXFzu8Nw/download";
+          sha256 = "1ls6yg13nayjsr6i1dmi1kwhhfyidn0vjri0m076bpfjw85z9a6k";
+        };
+      in [
+        { command = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --mode 1920x1080 --pos 0x1080 --output DP-4 --primary --mode 3840x2160 --pos 1920x0"; 
+          notification = false; 
+        }
+        { command = "${pkgs.feh}/bin/feh --bg-fill ${emre-flower}";
+          notification = false;
+        }
+      ];
+
+      keybindings = let
+        mod = modifier;
+
+        workspaces = map toString [1 2 3 4 5 6 7 8 9 0];
+        mkMoveCmd = (ws: { 
+            name = "${mod}+${ws}";
+            value = "[workspace=${ws}] move workspace to output current, workspace ${ws}";
+          });
+        myMoves = builtins.listToAttrs (map mkMoveCmd workspaces);
+      in lib.mkOptionDefault ({
+        "${mod}+x" = "exec kitty";
+        "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
+        "${mod}+f" = "exec firefox";
+        "${mod}+q" = "kill";
+        "${mod}+space" = "fullscreen";
+        "${mod}+p" = "exec --no-startup-id swapMonitors";
+
+        # Pulse Audio controls
+        "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume 0 +5%"; # increase sound volume
+        "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume 0 -5%"; # decrease sound volume
+        "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute 0 toggle"; # mute sound
+      } // (
+        # Only define light-control actions if it exists in pkgs. Otherwise, ignore it.
+        if pkgs ? light-control then {
+          # Hue light control
+          "XF86MonBrightnessUp" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-up";
+          "XF86MonBrightnessDown" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-down";
+        } else {}
+      ) // myMoves);
+    };
+  };
+
+  programs.rofi = {
+    enable = true;
+    theme = "gruvbox-dark";
+  };
+
+  programs.i3status = {
+    enable = true;
+    enableDefault = false;
+
+    general = {
+      colors = true;
+      color_good = gruvbox.bright_green;
+      color_degraded = gruvbox.bright_purple;
+      color_bad = gruvbox.bright_red;
+      interval = 1;
+    };
+
+    modules = {
+      "volume master" = {
+        position = 1;
+        settings = {
+          format = "♪: %volume";
+          format_muted = "♪: muted (%volume)";
+          device = "default";
+          mixer = "Master";
+          mixer_idx = 0;
+        };
+      };
+
+      ipv6 = { position = 2; };
+
+      /*
+      "wireless _first_" = {
+        position = 2;
+        settings = {
+          format_up = "W: (%quality at %essid) %ip";
+          format_down = "W: down";
+        };
+      };
+      */
+
+      "ethernet _first_" = {
+        position = 3;
+        settings = {
+          format_up = "E: %ip (%speed)";
+          format_down = "E: down";
+        };
+      };
+
+      "disk /" = {
+        position = 5;
+        settings = { format = "/ %avail"; };
+      };
+
+      "disk /home/monoid/otherhome/" = {
+        position = 6;
+        settings = { format = "~2 %avail"; };
+      };
+
+
+      load = {
+        position = 7;
+        settings = { format = "load %1min"; };
+      };
+
+      memory = {
+        position = 8;
+        settings = {
+          format = "mem %used / %available";
+          threshold_degraded = "1G";
+          format_degraded = "MEMORY < %available";
+        };
+      };
+
+      "tztime local" = {
+        position = 9;
+        settings = { format = "%Y-%m-%d %H:%M:%S"; };
+      };
+    };
+  };
+}
+
