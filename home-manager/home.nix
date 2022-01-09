@@ -48,14 +48,12 @@ in {
       ehome = ''
         ${pkgs.neovim}/bin/nvim -O ~/src/dotfiles/home-manager/home.nix ~/src/dotfiles/home-manager/includes && \
           ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager commit -a -m "Home update via ehome" && \
-          sudo nixos-rebuild switch --update-input monoid-home
-      '';
+          sudo nixos-rebuild switch --update-input monoid-home --update-input light-control'';
 
       enix = ''
         sudo -E ${pkgs.neovim}/bin/nvim -O /etc/nixos/configuration.nix /etc/nixos/includes/ && \
           sudo /run/current-system/sw/bin/nixos-rebuild switch && \
-          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a -m "System update via enix"
-      '';
+          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a -m "System update via enix"'';
     };
   };
 

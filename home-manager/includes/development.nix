@@ -3,7 +3,17 @@
 {
   home.packages = with pkgs; [
     ghc
+
+    # Go and editor support
     go
+    gopls
+    go-outline
+    goimports
+    golint
+    gopkgs
+    go-check
+    delve  # debugger
+    go-tools
   ];
 
   programs.git = {
