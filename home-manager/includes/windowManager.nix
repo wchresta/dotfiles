@@ -2,39 +2,12 @@
 
 let
   gruvbox = import ../gruvbox.nix {};
-
-  useCustomI3 = false;
 in rec {
-  home.file.".local/bin/swapMonitors" = {
-    executable = true;
-    text = ''
-      #!${pkgs.bash}/bin/bash
-
-      DISPLAY_CONFIG=($(i3-msg -t get_outputs | ${pkgs.jq}/bin/jq -r '.[]|"\(.name):\(.current_workspace)"'))
-
-      for ROW in "''${DISPLAY_CONFIG[@]}"
-      do
-        IFS=':'
-        read -ra CONFIG <<< "''${ROW}"
-        if [ "''${CONFIG[0]}" != "null" ] && [ "''${CONFIG[1]}" != "null" ]; then
-          echo "moving ''${CONFIG[1]} right..."
-          i3-msg -- workspace --no-auto-back-and-forth "''${CONFIG[1]}"
-          i3-msg -- move workspace to output right	
-        fi
-      done
-    '';
-  };
-
   xsession.enable = true;
   xsession.windowManager.i3 = rec {
     enable = true;
 
-    package = if useCustomI3 then 
-        pkgs.i3-gaps.overrideAttrs (old: old // {
-          nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.pcre2 ];
-          src = ~/src/i3; 
-        }) else pkgs.i3-gaps;
-
+    package = pkgs.i3-gaps;
 
     config = rec {
       modifier = "Mod4";
@@ -42,7 +15,9 @@ in rec {
       terminal = "kitty";
 
       gaps = {
-        inner = 5;
+        outer = 10;
+        inner = 3;
+
         smartBorders = "on";
         smartGaps = true;
       };
@@ -139,12 +114,15 @@ in rec {
         "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume 0 -5%"; # decrease sound volume
         "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute 0 toggle"; # mute sound
       } // (
-        # Only define light-control actions if it exists in pkgs. Otherwise, ignore it.
+        # Only define light-control actions if it exists in pkgs. Otherwise, use real brightnesscontrol
         if pkgs ? light-control then {
           # Hue light control
           "XF86MonBrightnessUp" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-up";
           "XF86MonBrightnessDown" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-down";
-        } else {}
+        } else {
+          "XF86MonBrightnessUp" = "exec brightnessctl s +5%";
+          "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
+        }
       ) // myMoves);
     };
   };

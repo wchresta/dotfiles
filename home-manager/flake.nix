@@ -7,17 +7,23 @@
   };
 
   outputs = inputs@{ self, ... }: {
-    homeConfiguration = args@{ ... }: {
-      imports = [ ./home.nix ];
+    homeConfiguration = {
+      "monoid@monoid" = args@{ ... }: {
+        imports = [ ./home.nix ./extras/monoid.nix ];
 
-      nixpkgs = {
-        overlays = [
-          (final: prev: 
-            if inputs ? light-control-flake then {
-              light-control = inputs.light-control-flake.packages.${prev.system}.light-control;
-            } else {}
-          )
-        ];
+        nixpkgs = {
+          overlays = [
+            (final: prev:
+              if inputs ? light-control-flake then {
+                light-control = inputs.light-control-flake.packages.${prev.system}.light-control;
+              } else {}
+            )
+          ];
+        };
+      };
+
+      "monoid@comonoid" = args@{ ... }: {
+        imports = [ ./home.nix ./extras/comonoid.nix ];
       };
     };
   };
