@@ -88,6 +88,33 @@ in {
     ];
   };
 
+  programs.i3status.modules = {
+    "wireless _first_" = {
+      position = 3;
+      settings = {
+        format_up = "W: (%quality at %essid) %ip";
+        format_down = "W: down";
+      };
+    };
+    
+    "battery 0" = {
+      position = 2;
+      settings = {
+        format = "%status %percentage %remaining %emptytime";
+        format_down = "No battery";
+        status_chr = "⚡ CHR";
+        status_bat = "🔋 BAT";
+        status_unk = "? UNK";
+        status_full = "☻ FULL";
+        path = "/sys/class/power_supply/BAT%d/uevent";
+        low_threshold = 15;
+      };
+    };
+    
+    "ethernet _first_".enable = false;
+  };
+ 
+
   programs.ssh = {
     enable = true;
     matchBlocks = {

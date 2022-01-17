@@ -169,7 +169,7 @@ in rec {
       */
 
       "ethernet _first_" = {
-        position = 3;
+        position = 4;
         settings = {
           format_up = "E: %ip (%speed)";
           format_down = "E: down";
