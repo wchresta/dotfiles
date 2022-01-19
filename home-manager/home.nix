@@ -28,7 +28,11 @@ in {
     enable = false;
     theme = {
       package = pkgs.gnome.gnome_themes_standard;
-      name = "Adwaita-Dark";
+      name = "Adwaita:dark";
+    };
+    iconTheme = {
+      package = pkgs.gnome.gnome_themes_standard;
+      name = "Adwaita:dark";
     };
   };
 

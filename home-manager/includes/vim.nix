@@ -29,7 +29,7 @@ let
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
         ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
-    
+
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-e>'] = cmp.mapping.close(),
@@ -102,6 +102,13 @@ in {
       au FileType markdown set spell
       au FileType typescript set sw=2
       au FileType python set tabstop=4 softtabstop=4 sw=4 textwidth=79 expandtab ai
+
+      " Define extra whitespace colorscheme; this has to be BEFORE the first colorscheme
+      highlight ExtraWhitespace ctermbg=yellow guibg=yellow
+      autocmd ColorScheme * highlight ExtraWhitespace ctermbg=yellow guibg=yellow
+      " Show trailing whitespace:
+      au InsertLeave * match ExtraWhitespace /\s\+$/
+      au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 
       set termguicolors
       let g:gruvbox_italic=1
