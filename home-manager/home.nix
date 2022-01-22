@@ -36,6 +36,20 @@ in {
     };
   };
 
+  programs.powerline-go = {
+    enable = true;
+    modules = [ "host" "ssh" "cwd" "jobs" "nix-shell" "exit" ];
+    settings = {
+      modules-right = "git,goenv,venv";  # Todo is soon supported by the module
+      hostname-only-if-ssh = true;
+      cwd-max-depth = 4;
+    };
+  };
+
+  programs.zsh = {
+    enable = true;
+  };
+
   programs.bash = {
     enable = true;
 

@@ -103,6 +103,8 @@ in {
       au FileType typescript set sw=2
       au FileType python set tabstop=4 softtabstop=4 sw=4 textwidth=79 expandtab ai
 
+      nnoremap <C-n> :!nix run<CR>
+
       " Define extra whitespace colorscheme; this has to be BEFORE the first colorscheme
       highlight ExtraWhitespace ctermbg=yellow guibg=yellow
       autocmd ColorScheme * highlight ExtraWhitespace ctermbg=yellow guibg=yellow
@@ -143,6 +145,7 @@ in {
       vim-nix
       vim-go
       vim-toml
+
 
       # ide things
       nvim-web-devicons  # for file icons
