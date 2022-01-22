@@ -10,10 +10,10 @@ let
       local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
       local opts = { noremap=true, silent=true }
-      buf_set_keymap('n', ',r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+      buf_set_keymap('n', ',R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
       buf_set_keymap('n', ',c', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
       buf_set_keymap('n', ',d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-      buf_set_keymap('n', ',e', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+      buf_set_keymap('n', ',E', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
       buf_set_keymap('n', ',k', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     end
 
@@ -114,6 +114,21 @@ in {
       let g:gruvbox_italic=1
       colorscheme gruvbox
 
+      " Setup nvim-tree
+      nnoremap <Leader>e :NvimTreeToggle<CR>
+      nnoremap <Leader>r :NvimTreeRefresh<CR>
+      nnoremap <Leader>f :NvimTreeFindFile<CR>
+      " NvimTreeOpen, NvimTreeClose, NvimTreeFocus, NvimTreeFindFileToggle, and NvimTreeResize are also available if you need them
+      let g:nvim_tree_show_icons = { 'git': 1, 'folders': 1, 'files': 1, 'folder_arrows': 1, }
+      lua << EOF
+        require'nvim-tree'.setup {
+          view = {
+            width = 30,
+            auto_resize = true
+          }
+        };
+      EOF
+
       " Setup nvim-cmp
       set completeopt=menu,menuone,noselect
       lua << EOF
@@ -122,9 +137,16 @@ in {
     '';
 
     plugins = with pkgs.vimPlugins; [
+      gruvbox-nvim
+
+      # syntax
       vim-nix
       vim-go
-      gruvbox-nvim
+      vim-toml
+
+      # ide things
+      nvim-web-devicons  # for file icons
+      nvim-tree-lua
 
       # Auto completion and lsp
       nvim-lspconfig
