@@ -96,7 +96,7 @@ in {
         format_down = "W: down";
       };
     };
-    
+
     "battery 0" = {
       position = 2;
       settings = {
@@ -110,10 +110,10 @@ in {
         low_threshold = 15;
       };
     };
-    
+
     "ethernet _first_".enable = false;
   };
- 
+
 
   programs.ssh = {
     enable = true;

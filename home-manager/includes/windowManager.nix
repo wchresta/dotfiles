@@ -2,7 +2,12 @@
 
 let
   gruvbox = import ../gruvbox.nix {};
+
+  nerd-fira-code = pkgs.nerdfonts.overrideAttrs (args: args // { fonts = [ "FiraCode" ]; });
 in rec {
+  # i3bar needs some fonts
+  home.packages = with pkgs; [ nerd-fira-code ];
+
   xsession.enable = true;
   xsession.windowManager.i3 = rec {
     enable = true;
@@ -130,6 +135,11 @@ in rec {
     };
   };
 
+  services.screen-locker = {
+    enable = true;
+    xss-lock.extraOptions = [ "-l" ];
+  };
+
   programs.rofi = {
     enable = true;
     theme = "gruvbox-dark";
@@ -221,24 +231,6 @@ in rec {
         position = 10;
         settings = { format = "%Y-%m-%d %H:%M:%S"; };
       };
-    };
-  };
-
-  systemd.user.services.choose-hdmi-mode = {
-    Unit = {
-      Description = "Set preferred hdmi output mode";
-    };
-
-    Service = {
-      Type = "simple";
-      # Choose main screen's HDMI output as the default NVIDIA output (HDMI 3)
-      ExecStart = "${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_07_00.1 output:hdmi-stereo-extra2";
-      Restart="on-failure";
-    };
-
-    Install = {
-      WantedBy = [ "sound.target" ];
-      After = [ "pulseaudio.service" ];
     };
   };
 }
