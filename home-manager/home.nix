@@ -2,6 +2,27 @@
 
 let
   localLib = pkgs.callPackage ./lib.nix {};
+
+  shellAliases = let
+      ehome-cmd = file: ''
+        ${pkgs.neovim}/bin/nvim ~/src/dotfiles/home-manager/${file} && \
+          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager commit -a -m "Home update via ehome" && \
+          sudo nixos-rebuild switch --update-input monoid-home --update-input light-control'';
+    in {
+      ls = "ls --color=auto";
+      l = "ls -alh";
+      ll = "ls -lh";
+      la = "ls -a";
+
+      ehome = ehome-cmd "";
+      evim = ehome-cmd "includes/vim.nix";
+
+      enix = ''
+        sudo -E ${pkgs.neovim}/bin/nvim /etc/nixos/includes/ && \
+          sudo /run/current-system/sw/bin/nixos-rebuild switch && \
+          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a -m "System update via enix"'';
+    };
+
 in {
   imports =
     [
@@ -38,44 +59,32 @@ in {
 
   programs.powerline-go = {
     enable = true;
-    modules = [ "host" "ssh" "cwd" "jobs" "nix-shell" "exit" ];
+    modules = [ "host" "ssh" "cwd" "nix-shell" "gitlite" "exit" ];
+    # Soon this is supported:
+    # modulesRight = [ "git" "goenv" "venv" ];
     settings = {
-      modules-right = "git,goenv,venv";  # Todo is soon supported by the module
       hostname-only-if-ssh = true;
       cwd-max-depth = 4;
+      theme = "gruvbox";
+      numeric-exit-codes = true;
     };
   };
 
   programs.zsh = {
+    inherit shellAliases;
     enable = true;
+    enableSyntaxHighlighting = true;
+
+    defaultKeymap = "viins";
+    initExtra = ''
+      # Enable shift-tab reverse completion
+      bindkey '^[[Z' reverse-menu-complete
+    '';
   };
 
   programs.bash = {
+    inherit shellAliases;
     enable = true;
-
-    initExtra = ''
-      PROMPT_COLOR="0;34m"
-      export PS1="\[\033[$PROMPT_COLOR\]\[\e]0;\u@\h: \w\a\]\u:\w\\$\[\033[0m\] "
-    '';
-
-    shellAliases = let
-      ehome-cmd = file: ''
-        ${pkgs.neovim}/bin/nvim ~/src/dotfiles/home-manager/${file} && \
-          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager commit -a -m "Home update via ehome" && \
-          sudo nixos-rebuild switch --update-input monoid-home --update-input light-control'';
-    in {
-      l = "ls -alh";
-      ll = "ls -lh";
-      la = "ls -a";
-
-      ehome = ehome-cmd "";
-      evim = ehome-cmd "includes/vim.nix";
-
-      enix = ''
-        sudo -E ${pkgs.neovim}/bin/nvim /etc/nixos/includes/ && \
-          sudo /run/current-system/sw/bin/nixos-rebuild switch && \
-          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a -m "System update via enix"'';
-    };
   };
 
   # This value determines the Home Manager release that your
