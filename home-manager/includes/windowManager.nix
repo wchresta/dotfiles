@@ -117,6 +117,8 @@ in rec {
         # Only define light-control actions if it exists in pkgs. Otherwise, use real brightnesscontrol
         if pkgs ? light-control then {
           # Hue light control
+          "F7" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-down";
+          "F8" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-up";
           "XF86MonBrightnessUp" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-up";
           "XF86MonBrightnessDown" = "exec --no-startup-id ${pkgs.light-control}/bin/light-control bri-down";
         } else {

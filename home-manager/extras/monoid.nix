@@ -11,7 +11,7 @@ in {
       '';
     };
 
-    keyboard.layout = "ch";
+    keyboard.layout = "us";
 
     packages = with pkgs; [
       ripgrep
