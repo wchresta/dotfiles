@@ -30,6 +30,7 @@ in {
       includes/vim.nix
       includes/firefox.nix
       includes/development.nix
+      includes/initscripts.nix
       includes/windowManager.nix
     ];
 
