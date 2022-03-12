@@ -58,6 +58,10 @@ in {
     };
   };
 
+  programs.chromium = {
+    enable = true;
+  };
+
   programs.powerline-go = {
     enable = true;
     modules = [ "host" "ssh" "cwd" "nix-shell" "gitlite" "exit" ];

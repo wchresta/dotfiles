@@ -2,6 +2,8 @@
 
 {
   home.packages = with pkgs; [
+    # basic tools
+    tree
     ghc
 
     # Go and editor support
