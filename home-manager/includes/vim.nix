@@ -87,12 +87,13 @@ in {
       set incsearch
       set magic
       set mouse=a
+      set nu
       set shiftwidth=2
-      set spelllang=en_gb
       set smartcase
       set smartindent
       set smarttab
       set softtabstop=4
+      set spelllang=en_gb
       set tabstop=2
       set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
       set wildmenu
@@ -140,6 +141,8 @@ in {
 
     plugins = with pkgs.vimPlugins; [
       gruvbox-nvim
+      editorconfig-vim
+      vim-surround
 
       # syntax
       vim-nix

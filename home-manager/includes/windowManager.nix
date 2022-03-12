@@ -105,9 +105,10 @@ in rec {
         "${mod}+x" = "exec kitty";
         "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
         "${mod}+f" = "exec firefox";
+        "${mod}+t" = "exec steam";
         "${mod}+q" = "kill";
         "${mod}+space" = "fullscreen";
-        "${mod}+p" = "exec --no-startup-id swapMonitors";
+        "${mod}+p" = "exec pavucontrol";
 
         # Pulse Audio controls
         "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +5%"; # increase sound volume
@@ -180,22 +181,35 @@ in rec {
 
       "disk /" = {
         position = 5;
-        settings = { format = "/ %avail"; };
+        settings = {
+          format = "/ %avail";
+          low_threshold = 100;
+          threshold_type = "gbytes_avail";
+        };
+      };
+
+      "disk /boot/" = {
+        position = 6;
+        settings = {
+          format = "/b %avail";
+          low_threshold = 20;
+          threshold_type = "mbytes_avail";
+        };
       };
 
       "disk /home/monoid/otherhome/" = {
-        position = 6;
+        position = 7;
         settings = { format = "~2 %avail"; };
       };
 
 
       load = {
-        position = 7;
+        position = 8;
         settings = { format = "load %1min"; };
       };
 
       memory = {
-        position = 8;
+        position = 9;
         settings = {
           format = "mem %used / %available";
           threshold_degraded = "1G";
@@ -204,7 +218,7 @@ in rec {
       };
 
       "tztime local" = {
-        position = 9;
+        position = 10;
         settings = { format = "%Y-%m-%d %H:%M:%S"; };
       };
     };

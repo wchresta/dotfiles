@@ -29,6 +29,9 @@
         editor = "nvim";
       };
 
+      init.defaultBranch = "main";
+      format.pretty = "oneline";
+
       pull = {
         rebase = true;
       };
