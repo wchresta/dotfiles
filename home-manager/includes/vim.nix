@@ -161,6 +161,7 @@ in {
       cmp-nvim-lsp
       vim-vsnip
       cmp-vsnip
+      pkgs.vimPlugins.ghcid
 
       # lsp servers
       vim-lsp

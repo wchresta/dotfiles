@@ -20,6 +20,12 @@ in {
       lutris
       fceux # emulator
       glirc
+
+      vlc
+
+      # games
+      multimc
+      openttd
     ];
   };
 }

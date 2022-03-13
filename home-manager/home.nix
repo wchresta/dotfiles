@@ -44,6 +44,13 @@ in {
 
     sessionPath = [ ".local/bin" ];
     sessionVariables = { EDITOR = "nvim"; };
+
+    packages = with pkgs; [
+      zip
+      unzip
+      gnome.file-roller
+      gnome.nautilus
+    ];
   };
 
   gtk = {

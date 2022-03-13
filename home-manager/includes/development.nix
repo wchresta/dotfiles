@@ -5,6 +5,8 @@
     # basic tools
     tree
     ghc
+    cabal-install
+    cabal2nix
 
     # Go and editor support
     go

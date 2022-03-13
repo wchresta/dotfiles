@@ -104,7 +104,7 @@ in rec {
       in lib.mkOptionDefault ({
         "${mod}+x" = "exec kitty";
         "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
-        "${mod}+f" = "exec firefox";
+        "${mod}+f" = "exec chromium";
         "${mod}+t" = "exec steam";
         "${mod}+q" = "kill";
         "${mod}+space" = "fullscreen";
