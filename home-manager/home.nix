@@ -26,11 +26,11 @@ let
 in {
   imports =
     [
-      includes/kitty.nix
-      includes/vim.nix
-      includes/firefox.nix
+      includes/browser.nix
       includes/development.nix
       includes/initscripts.nix
+      includes/kitty.nix
+      includes/vim.nix
       includes/windowManager.nix
     ];
 

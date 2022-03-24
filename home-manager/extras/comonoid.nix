@@ -47,7 +47,10 @@ in {
       zip
       usbutils
       qbittorrent
+
+      # games
       steam
+      openttd
 
       file
       # gdb

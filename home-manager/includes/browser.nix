@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  home.packages = [
+    pkgs.google-chrome  # progrmas.google-chrome is broken
+  ];
+
   programs.firefox = {
     enable = true;
 
