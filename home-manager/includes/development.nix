@@ -12,7 +12,7 @@
     go
     gopls
     go-outline
-    goimports
+    gotools
     golint
     gopkgs
     go-check
@@ -34,6 +34,8 @@
       init.defaultBranch = "main";
       format.pretty = "oneline";
 
+      safe.directory = "/home/nioxs";
+
       pull = {
         rebase = true;
       };
@@ -41,7 +43,7 @@
   };
 
   # vsliveshare needs a provider for org.freedesktop.secrets
-  services.gnome-keyring.enable = true;
+  # services.gnome-keyring.enable = true; # Broken in 22.05
   programs.vscode = {
     enable = true;
     # Turns out, most extensions are a bit out of date

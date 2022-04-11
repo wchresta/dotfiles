@@ -134,5 +134,6 @@ in {
     lockCmd = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p";
   };
 
-  services.blueman-applet.enable = true;
+  # This seems broken in 22.05 / home-manager atm
+  services.blueman-applet.enable = false;
 }

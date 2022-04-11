@@ -89,10 +89,16 @@ in rec {
           sha256 = "1ls6yg13nayjsr6i1dmi1kwhhfyidn0vjri0m076bpfjw85z9a6k";
         };
       in [
-        { command = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --mode 1920x1080 --pos 0x1080 --output DP-4 --primary --mode 3840x2160 --pos 1920x0"; 
-          notification = false; 
+        { command = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --mode 1920x1080 --pos 0x1080 --output DP-4 --primary --mode 3840x2160 --pos 1920x0";
+          notification = false;
         }
         { command = "${pkgs.feh}/bin/feh --bg-fill ${emre-flower}";
+          notification = false;
+        }
+        { command = "${pkgs.xorg.xset}/bin/xset s 720";
+          notification = false;
+        }
+        { command = "${pkgs.xorg.xset}/bin/xset dpms 720 600 720";
           notification = false;
         }
       ];
@@ -101,7 +107,7 @@ in rec {
         mod = modifier;
 
         workspaces = map toString [1 2 3 4 5 6 7 8 9 0];
-        mkMoveCmd = (ws: { 
+        mkMoveCmd = (ws: {
             name = "${mod}+${ws}";
             value = "[workspace=${ws}] move workspace to output current, workspace ${ws}";
           });
@@ -109,7 +115,7 @@ in rec {
       in lib.mkOptionDefault ({
         "${mod}+x" = "exec kitty";
         "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
-        "${mod}+f" = "exec google-chrome";
+        "${mod}+f" = "exec google-chrome-stable";
         "${mod}+t" = "exec steam";
         "${mod}+q" = "kill";
         "${mod}+space" = "fullscreen";
