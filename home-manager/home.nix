@@ -18,9 +18,9 @@ let
       evim = ehome-cmd "includes/vim.nix";
 
       enix = ''
-        sudo -E ${pkgs.neovim}/bin/nvim /etc/nixos/includes/ && \
+        sudo -E ${pkgs.neovim}/bin/nvim /etc/nixos/ && \
           sudo /run/current-system/sw/bin/nixos-rebuild switch && \
-          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a -m "System update via enix"'';
+          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a'';
     };
 
 in {
@@ -30,6 +30,7 @@ in {
       includes/development.nix
       includes/initscripts.nix
       includes/kitty.nix
+      includes/latex.nix
       includes/vim.nix
       includes/windowManager.nix
     ];
@@ -52,6 +53,9 @@ in {
       unzip
       gnome.file-roller
       gnome.nautilus
+      gtypist
+
+      baobab  # disk space visualization
     ];
   };
 

@@ -24,7 +24,7 @@ in {
       vlc
 
       # games
-      multimc
+      polymc
       openttd
     ];
   };

@@ -141,9 +141,9 @@ in rec {
     };
   };
 
-  services.screen-locker = {
-    enable = true;
-    xss-lock.extraOptions = [ "-l" ];
+  # Make sure nautilus is used to open directories
+  xdg.mimeApps.defaultApplications = {
+    "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
   };
 
   programs.rofi = {
@@ -237,6 +237,22 @@ in rec {
         position = 10;
         settings = { format = "%Y-%m-%d %H:%M:%S"; };
       };
+    };
+  };
+
+  systemd.user.services.setxkbmap-custom = {
+    Unit = {
+      Description = "Set up keyboard in X";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Install = { WantedBy = [ "graphical-session.target" ]; };
+
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "xset r rate 200 90";
     };
   };
 }
