@@ -126,6 +126,13 @@ in {
         hostname = "github.com";
         identityFile = "~/.ssh/id_github";
       };
+
+      "terminus" = {
+        user = "brachiel";
+        hostname = "terminus";
+        port = 144;
+        identityFile = "~/.ssh/id_terminus";
+      };
     };
   };
 

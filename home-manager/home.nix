@@ -6,8 +6,10 @@ let
   shellAliases = let
       ehome-cmd = file: ''
         ${pkgs.neovim}/bin/nvim ~/src/dotfiles/home-manager/${file} && \
-          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager commit -a -m "Home update via ehome" && \
-          sudo nixos-rebuild switch --update-input monoid-home --update-input light-control'';
+          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager/${file} add ~/src/dotfiles/home-manager/${file} && \
+          sudo nixos-rebuild switch --update-input monoid-home --update-input light-control && \
+          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager commit
+      '';
     in {
       ls = "ls --color=auto";
       l = "ls -alh";
@@ -19,8 +21,10 @@ let
 
       enix = ''
         sudo -E ${pkgs.neovim}/bin/nvim /etc/nixos/ && \
+          sudo -E ${pkgs.git}/bin/git -C /etc/nixos add /etc/nixos && \
           sudo /run/current-system/sw/bin/nixos-rebuild switch && \
-          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit -a'';
+          sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit
+      '';
     };
 
 in {
