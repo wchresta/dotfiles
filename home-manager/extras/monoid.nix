@@ -3,6 +3,10 @@
 let
   localLib = pkgs.callPackage ../lib.nix {};
 in {
+  imports = [
+      ../includes/wireplumber.nix
+  ];
+
   home = {
     file = localLib.makeScripts {
       rise-of-industry = ''
@@ -29,6 +33,7 @@ in {
     ];
   };
 
+  /*
   systemd.user.services.choose-hdmi-mode = {
     Unit = {
       Description = "Set preferred hdmi output mode";
@@ -45,5 +50,23 @@ in {
       WantedBy = [ "sound.target" ];
       After = [ "pulseaudio.service" ];
     };
+  };
+  */
+
+  services.wireplumber = {
+    config.enable = true;
+    config.extraConfig = ''
+      rule = {
+        matches = {
+          {
+            { "device.name", "equals", "alsa_card.pci-0000_07_00.1" },
+          },
+        },
+        apply_properties = {
+          ["device.profile"] = "hdmi-stereo-extra2";
+        }
+      }
+      table.insert(alsa_monitor.rules, rule)
+    '';
   };
 }
