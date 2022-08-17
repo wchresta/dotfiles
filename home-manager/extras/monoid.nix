@@ -54,8 +54,8 @@ in {
   */
 
   services.wireplumber = {
-    config.enable = true;
-    config.extraConfig = ''
+    config.enable = false;
+    config.extraLuaConfig = ''
       rule = {
         matches = {
           {

@@ -3,6 +3,10 @@
 let
   localLib = pkgs.callPackage ../lib.nix {};
 in {
+  imports = [
+    ../includes/wireplumber.nix
+  ];
+
   home = {
     file = localLib.makeScripts {
       connect_speaker = ''
@@ -139,6 +143,23 @@ in {
   services.screen-locker = {
     enable = true;
     lockCmd = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p";
+  };
+
+  services.wireplumber = {
+    config.enable = false;
+    config.extraLuaConfig = ''
+      rule = {
+        matches = {
+          {
+            { "device.name", "equals", "alsa_card.pci-0000_07_00.1" },
+          },
+        },
+        apply_properties = {
+          ["device.profile"] = "hdmi-stereo-extra2";
+        }
+      }
+      table.insert(alsa_monitor.rules, rule)
+    '';
   };
 
   # This seems broken in 22.05 / home-manager atm
