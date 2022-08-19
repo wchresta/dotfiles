@@ -2,6 +2,16 @@
 
 {
   home.packages = with pkgs; [
+    (writeScriptBin "inithaskell" ''
+      PROJNAME=''${PWD##*/}
+
+      nix flake init --template templates#haskell-hello
+
+      ${pkgs.git}/bin/git init .
+      ${pkgs.git}/bin/git add .
+      ${pkgs.git}/bin/git commit -m "inithaskell"
+    '')
+
     (writeScriptBin "initgo" ''
       PROJNAME=''${PWD##*/}
 
