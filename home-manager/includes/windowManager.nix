@@ -199,7 +199,7 @@ in rec {
         position = 5;
         settings = {
           format = "/ %avail";
-          low_threshold = 100;
+          low_threshold = 75;
           threshold_type = "gbytes_avail";
         };
       };
