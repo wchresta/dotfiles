@@ -1,11 +1,13 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
+  cfg = config.windowManager;
+
   gruvbox = import ../gruvbox.nix {};
 
   nerd-fira-code = pkgs.nerdfonts.overrideAttrs (args: args // { fonts = [ "FiraCode" ]; });
 in {
-  config = rec {
+  config = {
     # i3bar needs some fonts
     home.packages = with pkgs; [ nerd-fira-code ];
 
