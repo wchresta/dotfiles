@@ -1,18 +1,37 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 let
-  cfg = config.windowManager;
+  cfg = config.monoid.windowManager;
 
   gruvbox = import ../gruvbox.nix {};
 
   nerd-fira-code = pkgs.nerdfonts.overrideAttrs (args: args // { fonts = [ "FiraCode" ]; });
+
+  useX11 = cfg.compositor == "i3";
+  useWayland = !useX11;
+  useI3 = cfg.compositor == "i3";
+  useHyprland = cfg.compositor == "hyprland";
 in {
-  config = {
+  options.monoid.windowManager = {
+    enable = mkEnableOption "Manage window manager";
+
+    compositor = mkOption {
+      type = types.enum [ "i3" "hyprland" ];
+      default = "i3";
+      description = ''
+        Window manager to use. Also implies whether to use X11 or Wayland.
+      '';
+    };
+  };
+
+  config = mkIf cfg.enable {
     # i3bar needs some fonts
     home.packages = with pkgs; [ nerd-fira-code ];
 
-    xsession.enable = true;
-    xsession.windowManager.i3 = rec {
+    xsession.enable = useX11;
+    xsession.windowManager.i3 = mkIf useI3 rec {
       enable = true;
 
       package = pkgs.i3-gaps;
@@ -154,7 +173,7 @@ in {
       theme = "gruvbox-dark";
     };
 
-    programs.i3status = {
+    programs.i3status = mkIf useI3 {
       enable = true;
       enableDefault = false;
 
@@ -243,7 +262,7 @@ in {
       };
     };
 
-    systemd.user.services.setxkbmap-custom = {
+    systemd.user.services.setxkbmap-custom = mkIf useX11 {
       Unit = {
         Description = "Set up keyboard in X";
         After = [ "graphical-session-pre.target" ];

@@ -109,6 +109,12 @@ in {
     enable = true;
   };
 
+  # Custom modules
+  monoid = {
+    windowManager.enable = true;
+    windowManager.compositor = "i3";
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
