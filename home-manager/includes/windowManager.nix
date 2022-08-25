@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 with lib;
 
@@ -14,6 +14,11 @@ let
   useI3 = cfg.compositor == "i3";
   useHyprland = cfg.compositor == "hyprland";
 in {
+  imports = [
+    # Leads to infinite recursion, not sure why
+    # inputs.hyprland.homeManagerModules.default
+  ];
+
   options.monoid.windowManager = {
     enable = mkEnableOption "Manage window manager";
 
@@ -277,6 +282,12 @@ in {
         ExecStart = "xset r rate 200 90";
       };
     };
+
+    # Can't use this until we figure out
+    # infinite recursion when importing the hm module.
+    # wayland.windowManager.hyprland = mkIf useHyprland {
+    #   enable = true;
+    # };
   };
 }
 
