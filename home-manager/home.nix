@@ -35,6 +35,7 @@ in {
       includes/initscripts.nix
       includes/kitty.nix
       includes/latex.nix
+      includes/monoids.nix
       includes/vim.nix
       includes/windowManager.nix
     ];
