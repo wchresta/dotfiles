@@ -16,6 +16,9 @@ let
       ll = "ls -lh";
       la = "ls -a";
 
+      # Ensure ssh'ed hosts understand kitty
+      ssh = "kitty +kitten ssh";
+
       ehome = ehome-cmd "";
       evim = ehome-cmd "includes/vim.nix";
 
