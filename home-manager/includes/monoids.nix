@@ -16,6 +16,13 @@
         port = 144;
         identityFile = "~/.ssh/id_monoids";
       };
+
+      "netmonoid-config" = {
+        user = "config";
+        host = "netmonoid";
+        port = 144;
+        identityFile = "~/.ssh/id_monoids_config";
+      };
     };
   };
 }
