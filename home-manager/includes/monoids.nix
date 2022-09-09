@@ -2,6 +2,7 @@
 
 {
   config = {
+    programs.ssh.enable = true;
     programs.ssh.matchBlocks = {
       "netmonoid" = {
         user = "monoid";
