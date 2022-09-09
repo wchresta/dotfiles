@@ -69,4 +69,41 @@ in {
       table.insert(alsa_monitor.rules, rule)
     '';
   };
+
+  programs.ssh.matchBlocks = {
+    "github.com" = {
+      user = "git";
+      identityFile = "~/.ssh/id_github_wchresta";
+    };
+
+    "gitlab.com" = {
+      user = "git";
+      identityFile = "~/.ssh/id_github_wchresta";
+    };
+
+    "github-wchresta" = {
+      user = "git";
+      hostname = "github.com";
+      identityFile = "~/.ssh/id_github_wchresta";
+    };
+
+    "github-brachiel" = {
+      user = "git";
+      hostname = "github.com";
+      identityFile = "~/.ssh/id_github_brachiel";
+    };
+
+    "neo" = {
+      user = "brachiel";
+      hostname = "neo.chrumibei.ch";
+      port = 144;
+      identityFile = "~/.ssh/id_neo";
+    };
+
+    "comonoid" = {
+      hostname = "192.168.178.20";
+      user = "monoid";
+      identityFile = "~/.ssh/id_comonoid";
+    };
+  };
 }
