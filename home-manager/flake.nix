@@ -10,14 +10,9 @@
       flake = false;
       url = "path:/home/monoid/.config/nix/secrets.nix";
     };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs-unstable, monoid-secrets, hyprland, ... }: {
+  outputs = inputs@{ self, nixpkgs-unstable, monoid-secrets, ... }: {
     homeConfiguration = {
       "monoid@monoid" = args@{ ... }: {
         imports = [ ./home.nix ./extras/monoid.nix ];

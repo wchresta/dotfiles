@@ -19,7 +19,7 @@
       };
 
       "netmonoid-config" = {
-        user = "config";
+        user = "git-config";
         host = "netmonoid";
         port = 144;
         identityFile = "~/.ssh/monoids/id_monoids_config";
