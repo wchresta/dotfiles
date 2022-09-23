@@ -63,7 +63,10 @@ in {
       gnome.nautilus
       gtypist
 
+      qbittorrent
       baobab  # disk space visualization
+
+      gnome.seahorse # keyring UI
     ];
   };
 
@@ -112,6 +115,9 @@ in {
     inherit shellAliases;
     enable = true;
   };
+
+  # Enable keyring
+  services.gnome-keyring.enable = true;
 
   # Custom modules
   monoid = {
