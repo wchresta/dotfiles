@@ -7,7 +7,7 @@ let
 
   gruvbox = import ../gruvbox.nix {};
 
-  nerd-fira-code = pkgs.nerdfonts.overrideAttrs (args: args // { fonts = [ "FiraCode" ]; });
+  nerd-fira-code = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
 
   useX11 = cfg.compositor == "i3";
   useWayland = !useX11;

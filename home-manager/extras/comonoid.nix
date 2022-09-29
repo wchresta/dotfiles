@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   localLib = pkgs.callPackage ../lib.nix {};
@@ -140,10 +140,46 @@ in {
     };
   };
 
-  services.screen-locker = {
-    enable = true;
-    lockCmd = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p";
+  # We use xidlehook instead of xautolock, so we roll our own services
+  systemd.user.services = {
+    xss-lock = {
+      Unit = {
+        Description = "xss-lock, session locker service";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+
+      Service = {
+        ExecStart = lib.concatStringsSep " "
+        [
+          "${pkgs.xss-lock}/bin/xss-lock"
+          "-s \${XDG_SESSION_ID}"
+          "-- ${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p"
+        ];
+      };
+    };
+
+    xidlehook-session = {
+      Unit = {
+        Description = "xidlehook, session locker service";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+
+      Service = {
+        ExecStart = lib.concatStringsSep " " [
+          "${pkgs.xidlehook}/bin/xidlehook"
+          "--not-when-fullscreen"
+          "--timer 600 '${pkgs.systemd}/bin/loginctl lock-session \${XDG_SESSION_ID}' ''"
+        ];
+      };
+    };
   };
+
 
   services.wireplumber = {
     config.enable = false;
