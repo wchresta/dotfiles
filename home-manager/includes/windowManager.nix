@@ -142,7 +142,7 @@ in {
         in lib.mkOptionDefault ({
           "${mod}+x" = "exec kitty";
           "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
-          "${mod}+f" = "exec google-chrome-stable";
+          "${mod}+f" = "exec firefox";
           "${mod}+t" = "exec steam";
           "${mod}+q" = "kill";
           "${mod}+space" = "fullscreen";
