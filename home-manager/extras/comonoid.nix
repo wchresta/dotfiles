@@ -140,7 +140,17 @@ in {
     };
   };
 
-  # We use xidlehook instead of xautolock, so we roll our own services
+  services.xidlehook = {
+    enable = true;
+    # detect-sleep = true;  # Not yet in stable
+    not-when-fullscreen = true;
+    not-when-audio = false;
+    timers = [{
+      delay = 300;
+      command = "${pkgs.systemd}/bin/loginctl lock-session \${XDG_SESSION_ID}";
+    }];
+  };
+
   systemd.user.services = {
     xss-lock = {
       Unit = {
@@ -160,26 +170,7 @@ in {
         ];
       };
     };
-
-    xidlehook-session = {
-      Unit = {
-        Description = "xidlehook, session locker service";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Install = { WantedBy = [ "graphical-session.target" ]; };
-
-      Service = {
-        ExecStart = lib.concatStringsSep " " [
-          "${pkgs.xidlehook}/bin/xidlehook"
-          "--not-when-fullscreen"
-          "--timer 600 '${pkgs.systemd}/bin/loginctl lock-session \${XDG_SESSION_ID}' ''"
-        ];
-      };
-    };
   };
-
 
   services.wireplumber = {
     config.enable = false;
