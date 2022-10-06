@@ -147,29 +147,8 @@ in {
     not-when-audio = false;
     timers = [{
       delay = 300;
-      command = "${pkgs.systemd}/bin/loginctl lock-session \${XDG_SESSION_ID}";
+      command = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p";
     }];
-  };
-
-  systemd.user.services = {
-    xss-lock = {
-      Unit = {
-        Description = "xss-lock, session locker service";
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-      };
-
-      Install = { WantedBy = [ "graphical-session.target" ]; };
-
-      Service = {
-        ExecStart = lib.concatStringsSep " "
-        [
-          "${pkgs.xss-lock}/bin/xss-lock"
-          "-s \${XDG_SESSION_ID}"
-          "-- ${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p"
-        ];
-      };
-    };
   };
 
   services.wireplumber = {
