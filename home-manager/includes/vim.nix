@@ -149,7 +149,6 @@ in {
       vim-go
       vim-toml
 
-
       # ide things
       nvim-web-devicons  # for file icons
       nvim-tree-lua
@@ -165,6 +164,9 @@ in {
 
       # lsp servers
       vim-lsp
+
+      # other languages
+      idris2-vim
     ];
   };
 
