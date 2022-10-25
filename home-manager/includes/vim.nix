@@ -73,11 +73,11 @@ in {
     vimAlias = true;
 
     extraConfig = ''
-      syntax on
-      filetype plugin indent on
-
       let mapleader=","
       let maplocalleader=","
+
+      syntax on
+      filetype plugin indent on
 
       set ai
       set autoindent
@@ -160,13 +160,13 @@ in {
       cmp-nvim-lsp
       vim-vsnip
       cmp-vsnip
-      pkgs.vimPlugins.ghcid
 
       # lsp servers
       vim-lsp
 
       # other languages
       idris2-vim
+      # ghcid
     ];
   };
 
