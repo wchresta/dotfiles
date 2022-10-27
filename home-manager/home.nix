@@ -67,6 +67,9 @@ in {
       baobab  # disk space visualization
 
       gnome.seahorse # keyring UI
+
+      # https://github.com/nix-community/home-manager/issues/3113
+      dconf  # For gnome settigs to work
     ];
   };
 
