@@ -104,7 +104,7 @@ in {
       au FileType typescript set sw=2
       au FileType python set tabstop=4 softtabstop=4 sw=4 textwidth=79 expandtab ai
 
-      nnoremap <C-n> :!nix run<CR>
+      nmap <C-n> :!nix run<CR>
 
       " Define extra whitespace colorscheme; this has to be BEFORE the first colorscheme
       highlight ExtraWhitespace ctermbg=yellow guibg=yellow
@@ -118,9 +118,9 @@ in {
       colorscheme gruvbox
 
       " Setup nvim-tree
-      nnoremap <Leader>e :NvimTreeToggle<CR>
-      nnoremap <Leader>r :NvimTreeRefresh<CR>
-      nnoremap <Leader>f :NvimTreeFindFile<CR>
+      nmap <Leader>e :NvimTreeToggle<CR>
+      nmap <Leader>r :NvimTreeRefresh<CR>
+      nmap <Leader>f :NvimTreeFindFile<CR>
       " NvimTreeOpen, NvimTreeClose, NvimTreeFocus, NvimTreeFindFileToggle, and NvimTreeResize are also available if you need them
       let g:nvim_tree_show_icons = { 'git': 1, 'folders': 1, 'files': 1, 'folder_arrows': 1, }
       lua << EOF
