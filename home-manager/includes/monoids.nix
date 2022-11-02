@@ -6,21 +6,21 @@
     programs.ssh.matchBlocks = {
       "netmonoid" = {
         user = "monoid";
-        host = "netmonoid";
+        host = "net.monoid.li";
         port = 144;
         identityFile = "~/.ssh/monoids/id_monoids_monoid";
       };
 
       "netmonoid-deploy" = {
         user = "root";
-        host = "netmonoid";
+        host = "net.monoid.li";
         port = 144;
         identityFile = "~/.ssh/monoids/id_monoids";
       };
 
       "netmonoid-config" = {
         user = "git-config";
-        host = "netmonoid";
+        host = "net.monoid.li";
         port = 144;
         identityFile = "~/.ssh/monoids/id_monoids_config";
       };
