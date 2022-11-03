@@ -168,6 +168,21 @@ in {
     '';
   };
 
+  programs.autorandr = {
+    enable = true;
+    profiles.laptop = {
+      fingerprint = {
+        eDP1 = "00ffffffffffff0006af2d5b00000000001c0104a51d107803ee95a3544c99260f505400000001010101010101010101010101010101b43780a070383e403a2a350025a21000001a902c80a070383e403a2a350025a21000001a000000fe003036564736814231333348414e0000000000024122a8011100000a010a202000f0";
+      };
+      config = {
+        eDP1 = {
+          enable = true;
+          primary = true;
+        };
+      };
+    };
+  };
+
   # This seems broken in 22.05 / home-manager atm
   services.blueman-applet.enable = false;
 }
