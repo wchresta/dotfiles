@@ -28,7 +28,7 @@ in {
       vlc
 
       # games
-      polymc
+      # polymc # marked unsafe
       openttd
     ];
   };
