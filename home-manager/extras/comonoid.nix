@@ -137,6 +137,11 @@ in {
         port = 144;
         identityFile = "~/.ssh/id_terminus";
       };
+
+      "monoid" = {
+        user = "monoid";
+        identityFile = "~/.ssh/id_monoid";
+      };
     };
   };
 
