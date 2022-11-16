@@ -24,6 +24,13 @@
         port = 144;
         identityFile = "~/.ssh/monoids/id_monoids_config";
       };
+
+      "netmonoid-monitor" = {
+        user = "git-monitor";
+        host = "netmonoid";
+        port = 144;
+        identityFile = "~/.ssh/monoids/id_monoids";
+      };
     };
   };
 }
