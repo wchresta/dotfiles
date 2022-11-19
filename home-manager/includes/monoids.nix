@@ -29,7 +29,7 @@
         user = "git-monitor";
         host = "netmonoid";
         port = 144;
-        identityFile = "~/.ssh/monoids/id_monoids";
+        identityFile = "~/.ssh/monoids/id_monoids_monitor";
       };
     };
   };
