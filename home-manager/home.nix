@@ -4,11 +4,13 @@ let
   localLib = pkgs.callPackage ./lib.nix {};
 
   shellAliases = let
-      ehome-cmd = file: ''
-        ${pkgs.neovim}/bin/nvim ~/src/dotfiles/home-manager/${file} && \
-          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager/${file} add ~/src/dotfiles/home-manager/${file} && \
+      cfg-src = "~/src/dotfiles/home-manager";
+      ehome-cmd = file: with pkgs; ''
+        ${git}/bin/git -C ${cfg-src} pull && \
+          ${neovim}/bin/nvim ${cfg-src}/${file} && \
+          ${git}/bin/git -C ${cfg-src}/${file} add ${cfg-src}/${file} && \
           sudo nixos-rebuild switch --update-input monoid-home --update-input light-control && \
-          ${pkgs.git}/bin/git -C ~/src/dotfiles/home-manager commit
+          ${git}/bin/git -C ${cfg-src} commit
       '';
     in {
       ls = "ls --color=auto";
