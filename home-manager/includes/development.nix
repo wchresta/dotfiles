@@ -32,7 +32,7 @@
       };
 
       init.defaultBranch = "main";
-      format.pretty = "oneline";
+      format.pretty = "format:%C(yellow)%h%Cgreen %<(16)%ch %Cblue%D%Creset %s";
 
       safe.directory = "/home/nioxs";
 
