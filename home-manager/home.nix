@@ -75,6 +75,9 @@ in {
 
       # Read mail
       thunderbird
+
+      # dns stuff
+      dig
     ];
   };
 
