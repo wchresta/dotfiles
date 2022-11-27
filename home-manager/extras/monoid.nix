@@ -13,6 +13,22 @@ in {
         cd "$HOME/Games/Rise of Industry/"
         steam-run ./start.sh
       '';
+
+      thumbs-swap = ''
+        ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 22 = space"
+        ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 65 = BackSpace"
+      '';
+
+      thumbs-reset = ''
+        ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 22 = BackSpace"
+        ${pkgs.xorg.xmodmap}/bin/xmodmap -e "keycode 65 = space"
+      '';
+
+      with-thumbs-swapped = ''
+        thumbs-swap
+        "$@"
+        thumbs-reset
+      '';
     };
 
     keyboard.layout = "us";
