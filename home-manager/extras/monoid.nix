@@ -93,11 +93,11 @@ in {
       identityFile = "~/.ssh/id_github_brachiel";
     };
 
-    "neo" = {
+    "terminus" = {
       user = "brachiel";
-      hostname = "neo.chrumibei.ch";
+      hostname = "terminus.chresta-willi.ch";
       port = 144;
-      identityFile = "~/.ssh/id_neo";
+      identityFile = "~/.ssh/id_terminus";
     };
 
     "comonoid" = {
