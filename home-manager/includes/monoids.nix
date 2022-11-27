@@ -31,6 +31,14 @@
         port = 144;
         identityFile = "~/.ssh/monoids/id_monoids_monitor";
       };
+
+      "netmonoid-susannachresta" = {
+        user = "git-susannachresta";
+        host = "netmonoid";
+        port = 144;
+        identityFile = "~/.ssh/monoids/id_monoids_susannachresta";
+      };
+
     };
   };
 }
