@@ -125,9 +125,10 @@ in {
       let g:nvim_tree_show_icons = { 'git': 1, 'folders': 1, 'files': 1, 'folder_arrows': 1, }
       lua << EOF
         require'nvim-tree'.setup {
+          sync_root_with_cwd = true,
           view = {
+            adaptive_size = true,
             width = 30,
-            auto_resize = true
           }
         };
       EOF
