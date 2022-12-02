@@ -60,7 +60,7 @@ let
     })
 
     -- Setup lspconfig.
-    local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require('cmp_nvim_lsp').default_capabilities();
     lspconfig['rnix'].setup {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -122,9 +122,18 @@ in {
       nmap <Leader>r :NvimTreeRefresh<CR>
       nmap <Leader>f :NvimTreeFindFile<CR>
       " NvimTreeOpen, NvimTreeClose, NvimTreeFocus, NvimTreeFindFileToggle, and NvimTreeResize are also available if you need them
-      let g:nvim_tree_show_icons = { 'git': 1, 'folders': 1, 'files': 1, 'folder_arrows': 1, }
       lua << EOF
         require'nvim-tree'.setup {
+          renderer = {
+            icons = {
+              show = {
+                git = true,
+                file = true,
+                folder = true,
+                folder_arrow = true,
+              },
+            },
+          },
           sync_root_with_cwd = true,
           view = {
             adaptive_size = true,
