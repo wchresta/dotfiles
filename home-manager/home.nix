@@ -6,11 +6,11 @@ let
   shellAliases = let
       cfg-src = "~/src/dotfiles/home-manager";
       ehome-cmd = file: with pkgs; ''
-        ${git}/bin/git -C ${cfg-src} pull && \
-          ${neovim}/bin/nvim ${cfg-src}/${file} && \
-          ${git}/bin/git -C ${cfg-src}/${file} add ${cfg-src}/${file} && \
-          sudo nixos-rebuild switch --update-input monoid-home --update-input light-control && \
-          ${git}/bin/git -C ${cfg-src} commit
+        git -C ${cfg-src} pull && \
+        nvim ${cfg-src}/${file} && \
+        git -C ${cfg-src}/${file} add ${cfg-src}/${file} && \
+        sudo nixos-rebuild switch --update-input monoid-home --update-input light-control && \
+        git -C ${cfg-src} commit
       '';
     in {
       ls = "ls --color=auto";

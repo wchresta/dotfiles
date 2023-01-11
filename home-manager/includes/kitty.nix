@@ -6,8 +6,8 @@ in {
   programs.kitty = {
     enable = true;
 
-    # Use nerdfonts but onlz select FiraCode, otherwise building takes long
-    font.package = pkgs.nerdfonts.overrideAttrs (args: args // { fonts = [ "FiraCode" ]; });
+    # Use nerdfonts but only select FiraCode, otherwise building takes long
+    font.package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
     font.name = "Fira Code Regular 12";
 
     settings = {
