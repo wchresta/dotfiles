@@ -39,6 +39,12 @@
         identityFile = "~/.ssh/monoids/id_monoids_susannachresta";
       };
 
+      "netmonoid-idlez" = {
+        user = "git-idlez";
+        host = "netmonoid";
+        port = 144;
+        identityFile = "~/.ssh/monoids/id_monoids_monitor";
+      };
     };
   };
 }
