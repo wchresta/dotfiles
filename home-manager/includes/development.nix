@@ -18,6 +18,9 @@
     go-check
     delve  # debugger
     go-tools
+
+    # Java
+    jetbrains.idea-community
   ];
 
   programs.git = {
