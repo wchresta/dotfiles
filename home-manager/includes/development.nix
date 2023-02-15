@@ -21,6 +21,7 @@
 
     # Java
     jetbrains.idea-community
+    jdk
   ];
 
   programs.git = {
