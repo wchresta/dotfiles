@@ -22,6 +22,7 @@
     # Java
     jetbrains.idea-community
     jdk
+    visualvm
   ];
 
   programs.git = {
