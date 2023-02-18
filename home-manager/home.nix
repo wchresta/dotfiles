@@ -55,7 +55,7 @@ in {
     username = "monoid";
     homeDirectory = "/home/monoid";
 
-    sessionPath = [ ".local/bin" ];
+    sessionPath = [ "~/.local/bin" ];
     sessionVariables = { EDITOR = "nvim"; };
 
     packages = with pkgs; [
