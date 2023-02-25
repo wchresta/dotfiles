@@ -73,6 +73,8 @@ in {
       # https://github.com/nix-community/home-manager/issues/3113
       dconf  # For gnome settigs to work
 
+      evince
+
       # Read mail
       thunderbird
 
