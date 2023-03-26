@@ -39,6 +39,7 @@ in {
       pulseaudio  # for pactl
       lutris
       wineWowPackages.stable
+      mono
       winetricks
       protontricks
       fceux # emulator
