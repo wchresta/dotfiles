@@ -38,6 +38,8 @@ in {
       pavucontrol
       pulseaudio  # for pactl
       lutris
+      winetricks
+      protontricks
       fceux # emulator
       glirc
 
