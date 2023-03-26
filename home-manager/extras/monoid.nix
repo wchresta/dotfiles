@@ -38,6 +38,7 @@ in {
       pavucontrol
       pulseaudio  # for pactl
       lutris
+      wineWowPackages.stable
       winetricks
       protontricks
       fceux # emulator
