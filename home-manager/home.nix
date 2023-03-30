@@ -25,7 +25,7 @@ let
       evim = ehome-cmd "includes/vim.nix";
 
       enix = ''
-        sudo -E ${pkgs.neovim}/bin/nvim /etc/nixos/ && \
+        sudo -E nvim /etc/nixos/ && \
           sudo -E ${pkgs.git}/bin/git -C /etc/nixos add /etc/nixos && \
           sudo /run/current-system/sw/bin/nixos-rebuild switch && \
           sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit
