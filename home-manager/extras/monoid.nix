@@ -53,6 +53,8 @@ in {
       # games
       # polymc # marked unsafe
       openttd
+
+      godot
     ];
   };
 
