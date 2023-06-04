@@ -1,6 +1,5 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     light-control-flake.url = "light-control";
@@ -12,10 +11,37 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs-unstable, monoid-secrets, ... }: {
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, monoid-secrets, ... }:
+    let
+      channelOverlay = args: {
+          xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
+          home.sessionVariables.NIX_PATH = "nixpkgs=${args.config.xdg.configHome}/nix/inputs/nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
+
+          nix.registry.nixpkgs.flake = nixpkgs;
+        };
+    in {
     homeConfiguration = {
       "monoid@monoid" = args@{ ... }: {
-        imports = [ ./home.nix ./extras/monoid.nix ];
+        imports = [ channelOverlay ./home.nix ./extras/monoid.nix ];
+
+        nix.registry = {
+          light-control.from = {
+            id = "light-control";
+            type = "indirect";
+          };
+          light-control.to = {
+            type = "path";
+            path = "/home/monoid/src/light-control";
+          };
+          containers.from = {
+            id = "containers";
+            type = "indirect";
+          };
+          containers.to = {
+            type = "path";
+            path = "/home/monoid/src/monoids";
+          };
+        };
 
         nixpkgs = {
           overlays = [
@@ -41,7 +67,7 @@
       };
 
       "monoid@comonoid" = args@{ ... }: {
-        imports = [ ./home.nix ./extras/comonoid.nix ];
+        imports = [ channelOverlay ./home.nix ./extras/comonoid.nix ];
       };
     };
   };
