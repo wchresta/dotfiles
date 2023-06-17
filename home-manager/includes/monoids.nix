@@ -18,6 +18,13 @@
         identityFile = "~/.ssh/monoids/id_monoids";
       };
 
+      "netmonoid-git" = {
+        user = "gitea";
+        host = "netmonoid";
+        port = 144;
+        identityFile = "~/.ssh/monoids/id_gitea";
+      };
+
       "netmonoid-config" = {
         user = "git-config";
         host = "netmonoid";
