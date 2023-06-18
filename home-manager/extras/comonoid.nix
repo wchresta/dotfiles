@@ -54,7 +54,7 @@ in {
 
       # games
       steam
-      openttd
+      godot
 
       file
       # gdb
