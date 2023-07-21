@@ -130,5 +130,9 @@ in {
       user = "monoid";
       identityFile = "~/.ssh/id_comonoid";
     };
+
+    "source.developers.google.com" = {
+      identityFile = "~/.ssh/id_dev_google";
+    };
   };
 }
