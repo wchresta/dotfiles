@@ -142,6 +142,10 @@ in {
         user = "monoid";
         identityFile = "~/.ssh/id_monoid";
       };
+
+      "source.developers.google.com" = {
+        identityFile = "~/.ssh/id_dev_google";
+      };
     };
   };
 
