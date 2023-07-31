@@ -64,6 +64,7 @@ in {
       gnome.file-roller
       gnome.nautilus
       gtypist
+      file
 
       qbittorrent
       baobab  # disk space visualization
@@ -74,6 +75,7 @@ in {
       dconf  # For gnome settigs to work
 
       evince
+      gimp
 
       # Read mail
       thunderbird
