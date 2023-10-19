@@ -35,6 +35,7 @@ in {
       brightnessctl
       pulsemixer
 
+      helvum
       vlc
 
       i3lock-fancy
