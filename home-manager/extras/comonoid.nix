@@ -56,6 +56,11 @@ in {
       # games
       steam
       godot
+      # https://github.com/lutris/lutris/issues/3965#issuecomment-1100904672
+      (writeShellScriptBin "lutris" ''
+          env WEBKIT_DISABLE_COMPOSITING_MODE=1 ${lutris}/bin/lutris "$@"
+      '')
+      wineWowPackages.stable
 
       file
       # gdb
