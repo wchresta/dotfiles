@@ -61,6 +61,8 @@ in {
           env WEBKIT_DISABLE_COMPOSITING_MODE=1 ${lutris}/bin/lutris "$@"
       '')
       wineWowPackages.stable
+      winetricks
+      protontricks
 
       file
       # gdb
