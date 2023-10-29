@@ -53,6 +53,7 @@ in {
       # games
       # polymc # marked unsafe
       openttd
+      prismlauncher # minecraft
 
       godot
     ];
