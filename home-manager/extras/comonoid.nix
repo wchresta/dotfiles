@@ -63,6 +63,7 @@ in {
       wineWowPackages.stable
       winetricks
       protontricks
+      prismlauncher
 
       file
       # gdb
