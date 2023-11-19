@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   home.packages = [
@@ -50,7 +50,15 @@
     };
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = "firefox.desktop";
+  xdg.mimeApps.defaultApplications = let
+    item = "firefox.desktop";
+  in {
+    "text/html" = item;
+    "x-scheme-handler/http" = item;
+    "x-scheme-handler/https" = item;
+    "x-scheme-handler/about" = item;
+    "x-scheme-handler/unknown" = item;
   };
+
+  home.sessionVariables.DEFAULT_BROWSER = "/etc/profiles/per-user/${config.home.username}/bin/firefox";
 }
