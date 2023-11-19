@@ -49,4 +49,8 @@
       '';
     };
   };
+
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "firefox.desktop";
+  };
 }
