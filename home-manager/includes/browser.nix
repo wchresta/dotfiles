@@ -18,6 +18,9 @@
         "media.videocontrols.picture-in-picture.allow-multiple" = false;
         "media.videocontrols.picture-in-picture.enabled" = false;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+        # https://github.com/NixOS/nixpkgs/issues/269571
+        "webgl.disabled" = true;
       };
 
       userChrome = ''
