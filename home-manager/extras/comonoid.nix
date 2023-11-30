@@ -74,7 +74,7 @@ in {
       gnome3.nautilus
       gnome3.gnome-disk-utility
       gnome3.gnome-keyring
-      glirc
+      # glirc  # broken
 
       s3fs
       borgbackup

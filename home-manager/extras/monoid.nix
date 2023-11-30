@@ -46,7 +46,7 @@ in {
       winetricks
       protontricks
       fceux # emulator
-      glirc
+      # glirc  # broken
 
       vlc
 
@@ -55,7 +55,7 @@ in {
       openttd
       prismlauncher # minecraft
 
-      godot
+      godot_4
     ];
   };
 
