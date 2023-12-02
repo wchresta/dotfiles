@@ -8,18 +8,6 @@ in {
   ];
 
   home = {
-    file = localLib.makeScripts {
-      connect_speaker = ''
-        bluetoothctl power on
-        bluetoothctl connect 00:0C:8A:E9:18:77
-      '';
-
-      connect_headset = ''
-        bluetoothctl power on
-        bluetoothctl connect 38:18:4C:19:F0:59
-      '';
-    };
-
     packages = let
       myPythonPkgs = ppkgs: with ppkgs; [
         ipykernel
