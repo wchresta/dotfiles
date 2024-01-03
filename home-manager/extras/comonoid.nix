@@ -52,6 +52,8 @@ in {
       protontricks
       prismlauncher
 
+      godot_4
+
       file
       # gdb
       # ddd
