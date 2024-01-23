@@ -67,12 +67,18 @@ in {
   programs.zsh = {
     inherit shellAliases;
     enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+
     syntaxHighlighting.enable = true;
 
     defaultKeymap = "viins";
     initExtra = ''
       # Enable shift-tab reverse completion
       bindkey '^[[Z' reverse-menu-complete
+
+      # Allow backspace to delete any char
+      bindkey -v '^?' backward-delete-char
     '';
   };
 
