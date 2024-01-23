@@ -45,7 +45,7 @@
 
                 src = ./.;
 
-                vendorSha256 = "";
+                vendorHash = "";
               };
             in {
               packages = { inherit $PROJNAME; };
