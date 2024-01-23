@@ -127,7 +127,7 @@ in {
     };
 
     "comonoid" = {
-      hostname = "192.168.178.20";
+      hostname = "comonoid.fritz.box";
       user = "monoid";
       identityFile = "~/.ssh/id_comonoid";
     };
