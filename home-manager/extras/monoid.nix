@@ -52,6 +52,7 @@ in {
 
       # games
       # polymc # marked unsafe
+      mangohud # display vulkan stats
       openttd
       prismlauncher # minecraft
 
