@@ -67,7 +67,7 @@ in {
   programs.zsh = {
     inherit shellAliases;
     enable = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
 
     defaultKeymap = "viins";
     initExtra = ''
