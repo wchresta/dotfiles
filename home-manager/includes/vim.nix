@@ -61,10 +61,6 @@ let
 
     -- Setup lspconfig.
     local capabilities = require('cmp_nvim_lsp').default_capabilities();
-    lspconfig['rnix'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
   '';
 in {
    programs.neovim = {
@@ -179,8 +175,4 @@ in {
       # ghcid
     ];
   };
-
-  home.packages = [
-    pkgs.rnix-lsp
-  ];
 }
