@@ -56,6 +56,8 @@ in {
       openttd
       prismlauncher # minecraft
 
+      clonehero
+
       godot_4
     ];
   };
