@@ -149,7 +149,7 @@ in {
 
   services.xidlehook = {
     enable = true;
-    # detect-sleep = true;  # Not yet in stable
+    detect-sleep = true;
     not-when-fullscreen = true;
     not-when-audio = false;
     timers = [{
