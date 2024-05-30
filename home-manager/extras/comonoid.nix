@@ -93,6 +93,11 @@ in {
     ];
   };
 
+  xsession.windowManager.i3.config.keybindings = {
+    # Connect MOMENTUM 4
+    "XF86Search" = "exec --no-startup-id ${pkgs.bluez}/bin/bluetoothctl connect 80:C3:BA:4A:A0:2A";
+  };
+
   programs.i3status.modules = {
     "wireless _first_" = {
       position = 3;
