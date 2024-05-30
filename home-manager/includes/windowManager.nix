@@ -139,7 +139,7 @@ in {
               value = "[workspace=${ws}] move workspace to output current, workspace ${ws}";
             });
           myMoves = builtins.listToAttrs (map mkMoveCmd workspaces);
-        in lib.mkOptionDefault ({
+        in {
           "${mod}+x" = "exec kitty";
           "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
           "${mod}+f" = "exec firefox";
@@ -166,7 +166,7 @@ in {
             "XF86MonBrightnessUp" = "exec brightnessctl s +5%";
             "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
           }
-        ) // myMoves);
+        ) // myMoves;
       };
     };
 
