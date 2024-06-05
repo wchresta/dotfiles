@@ -18,11 +18,6 @@
     go-check
     delve  # debugger
     go-tools
-
-    # Java
-    jetbrains.idea-community
-    jdk
-    visualvm
   ];
 
   programs.git = {
