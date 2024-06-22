@@ -58,7 +58,7 @@ in {
 
       clonehero
 
-      godot_4
+      (pkgs.callPackage ../pkgs/godot4-mono {})
     ];
   };
 
