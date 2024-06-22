@@ -58,7 +58,10 @@ in {
 
       clonehero
 
-      (pkgs.callPackage ../pkgs/godot4-mono {})
+      godot_4
+      # godot4-mono does not work atm
+      # See also https://github.com/NixOS/nixpkgs/pull/285941
+      # (pkgs.callPackage ../pkgs/godot4-mono {})
     ];
   };
 
