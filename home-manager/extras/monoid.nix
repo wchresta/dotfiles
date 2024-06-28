@@ -29,6 +29,16 @@ in {
         "$@"
         thumbs-reset
       '';
+
+      basemoid-switch = ''
+        set -euxo pipefail
+
+        # Rebuild locally, deploy remotely
+        sudo nixos-rebuild --target-host basemoid switch --flake /etc/nixos#basemoid
+
+        # Copy configuration
+        scp -r /etc/nixos/* basemoid:/etc/nixos
+      '';
     };
 
     keyboard.layout = "us";
@@ -140,6 +150,11 @@ in {
 
     "source.developers.google.com" = {
       identityFile = "~/.ssh/id_dev_google";
+    };
+
+    "basemoid" = {
+      user = "root";
+      identityFile = "~/.ssh/id_basemoid";
     };
   };
 }
