@@ -29,16 +29,6 @@ in {
         "$@"
         thumbs-reset
       '';
-
-      basemoid-switch = ''
-        set -euxo pipefail
-
-        # Rebuild locally, deploy remotely
-        sudo nixos-rebuild --target-host basemoid switch --flake /etc/nixos#basemoid
-
-        # Copy configuration
-        scp -r /etc/nixos/* basemoid:/etc/nixos
-      '';
     };
 
     keyboard.layout = "us";

@@ -30,6 +30,11 @@ let
           sudo /run/current-system/sw/bin/nixos-rebuild switch && \
           sudo -E ${pkgs.git}/bin/git -C /etc/nixos commit
       '';
+
+      ebase = ''
+        sudo -E nvim /etc/nixos/basemoid && \
+          basemoid-switch
+      '';
     };
 in {
   programs.powerline-go = {
