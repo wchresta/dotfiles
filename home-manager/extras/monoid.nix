@@ -155,6 +155,7 @@ in {
     "basemoid" = {
       user = "root";
       identityFile = "~/.ssh/id_basemoid";
+      port = 144;
     };
   };
 }
