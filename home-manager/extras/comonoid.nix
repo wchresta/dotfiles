@@ -168,6 +168,21 @@ in {
       command = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p";
     }];
   };
+  systemd.user.enable = true;
+  systemd.user.services.lock-before-sleep = {
+    Unit = {
+      Description = "Lock before sleep";
+      Before = [ "pre-sleep.service" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.i3lock-fancy}/bin/i3lock-fancy -n -g -p";
+    };
+
+    Install = {
+      WantedBy = [ "pre-sleep.service" ];
+    };
+  };
 
   services.wireplumber = {
     config.enable = false;
