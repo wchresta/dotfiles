@@ -149,6 +149,12 @@ in {
       "source.developers.google.com" = {
         identityFile = "~/.ssh/id_dev_google";
       };
+
+      "basemoid" = {
+        user = "root";
+        identityFile = "~/.ssh/id_basemoid";
+        port = 144;
+      };
     };
   };
 
