@@ -37,6 +37,7 @@
 
       qbittorrent
       baobab  # disk space visualization
+      jellyfin-media-player
 
       gnome.seahorse # keyring UI
 
