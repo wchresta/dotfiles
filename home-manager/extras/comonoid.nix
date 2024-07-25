@@ -169,7 +169,7 @@ in {
     }];
   };
   systemd.user.enable = true;
-  systemd.user.services.lock-before-sleep = {
+  systemd.user.services.pre-sleep = {
     Unit = {
       Description = "Lock before sleep";
       Before = [ "pre-sleep.service" ];
