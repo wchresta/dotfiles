@@ -5,6 +5,9 @@
     light-control-flake.url = "light-control";
     light-control-flake.inputs.nixpkgs.follows = "nixpkgs";
 
+    simple-dbus-hook.url = "/home/monoid/src/simple-dbus-hook";
+    simple-dbus-hook.inputs.nixpkgs.follows = "nixpkgs";
+
     monoid-secrets = {
       flake = false;
       url = "path:/home/monoid/.config/nix/secrets.nix";
@@ -68,6 +71,10 @@
 
       "monoid@comonoid" = args@{ ... }: {
         imports = [ channelOverlay ./home.nix ./extras/comonoid.nix ];
+
+        nixpkgs.overlays = [
+          (final: prev: { simple-dbus-hook = inputs.simple-dbus-hook.packages.${prev.system}.default; })
+        ];
       };
     };
   };

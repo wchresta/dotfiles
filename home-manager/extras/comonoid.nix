@@ -184,6 +184,32 @@ in {
     };
   };
 
+  systemd.user.services.screensaver-hook = {
+    Unit = {
+      Description = "Turns on/off screensaver depending on dbus messages";
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Service = let
+      inhibit = pkgs.writeScript "inhibit" ''
+        #!${pkgs.stdenv.shell}
+        xset s off
+        xset -dpms
+      '';
+      uninhibit = pkgs.writeScript "uninhibit" ''
+        #!${pkgs.stdenv.shell}
+        xset s on
+        xset +dpms
+      '';
+    in {
+      ExecStart = "${pkgs.simple-dbus-hook}/bin/simple-dbus-hook --inhibit ${inhibit} --uninhibit ${uninhibit}";
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   services.wireplumber = {
     config.enable = false;
     config.extraLuaConfig = ''
