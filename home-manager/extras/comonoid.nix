@@ -193,13 +193,11 @@ in {
     Service = let
       inhibit = pkgs.writeScript "inhibit" ''
         #!${pkgs.stdenv.shell}
-        xset s off
-        xset -dpms
+        ${pkgs.xorg.xset}/bin/xset -dpms s off
       '';
       uninhibit = pkgs.writeScript "uninhibit" ''
         #!${pkgs.stdenv.shell}
-        xset s on
-        xset +dpms
+        ${pkgs.xorg.xset}/bin/xset +dpms s on
       '';
     in {
       ExecStart = "${pkgs.simple-dbus-hook}/bin/simple-dbus-hook --inhibit ${inhibit} --uninhibit ${uninhibit}";
