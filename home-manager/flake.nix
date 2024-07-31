@@ -5,7 +5,7 @@
     light-control-flake.url = "light-control";
     light-control-flake.inputs.nixpkgs.follows = "nixpkgs";
 
-    simple-dbus-hook.url = "/home/monoid/src/simple-dbus-hook";
+    simple-dbus-hook.url = "path:/home/monoid/src/simple-dbus-hook";
     simple-dbus-hook.inputs.nixpkgs.follows = "nixpkgs";
 
     monoid-secrets = {
