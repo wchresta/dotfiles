@@ -102,7 +102,7 @@ in {
     "wireless _first_" = {
       position = 3;
       settings = {
-        format_up = "W: (%quality at %essid) %ip";
+        format_up = "W: (%quality at %essid, %bitrate) %ip";
         format_down = "W: down";
       };
     };
