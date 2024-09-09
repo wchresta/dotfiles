@@ -31,6 +31,12 @@
         identityFile = "~/.ssh/monoids/id_gitea";
       };
 
+      "git.monoid.li" = {
+        user = "gitea";
+        port = 144;
+        identityFile = "~/.ssh/monoids/id_gitea";
+      };
+
       "netmonoid-config" = {
         user = "git-config";
         host = "netmonoid";
