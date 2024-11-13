@@ -35,7 +35,6 @@
       gtypist
       file
 
-      qbittorrent
       baobab  # disk space visualization
       jellyfin-media-player
 

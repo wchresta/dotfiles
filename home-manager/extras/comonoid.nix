@@ -39,7 +39,6 @@ in {
       ripgrep
       zip
       usbutils
-      qbittorrent
 
       # games
       steam
