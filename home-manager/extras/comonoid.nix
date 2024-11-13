@@ -68,8 +68,7 @@ in {
       s3fs
       borgbackup
 
-      # evince
-      # gimp-with-plugins
+      davinci-resolve
 
       # chessx
       # gnuchess
