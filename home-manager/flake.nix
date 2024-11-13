@@ -48,6 +48,7 @@
 
         nixpkgs = {
           overlays = [
+            (import ./pkgs/common-overlay.nix)
             (final: prev: let
               unstable = import nixpkgs-unstable {
                 system = prev.system;
@@ -73,6 +74,7 @@
         imports = [ channelOverlay ./home.nix ./extras/comonoid.nix ];
 
         nixpkgs.overlays = [
+          (import ./pkgs/common-overlay.nix)
           (final: prev: { simple-dbus-hook = inputs.simple-dbus-hook.packages.${prev.system}.default; })
         ];
       };
