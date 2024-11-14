@@ -2,7 +2,7 @@
 , lib
 , cacert
 , curl
-, runCommandLocal
+, fetchurl
 , unzip
 , appimage-run
 , addDriverRunpath
@@ -49,82 +49,7 @@ let
         xorg.libXxf86vm
       ];
 
-      src = runCommandLocal "${pname}-src.zip"
-        rec {
-          outputHashMode = "recursive";
-          outputHashAlgo = "sha256";
-          outputHash =
-            if studioVariant
-            then "sha256-q11stWFWRDUebAUzGH23R3Spd3EdDG85+6yB/srYCJY="
-            else "sha256-dYTrO0wpIN68WhBovmYLK5uWOQ1nubpSyKqPCDMPMiM=";
-
-          impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-
-          nativeBuildInputs = [ curl jq ];
-
-          # ENV VARS
-          SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
-
-          # Get linux.downloadId from HTTP response on https://www.blackmagicdesign.com/products/davinciresolve
-          REFERID = "263d62f31cbb49e0868005059abcb0c9";
-          DOWNLOADSURL = "https://www.blackmagicdesign.com/api/support/us/downloads.json";
-          SITEURL = "https://www.blackmagicdesign.com/api/register/us/download";
-          PRODUCT = "DaVinci Resolve${lib.optionalString studioVariant " Studio"}";
-          VERSION = version;
-
-          USERAGENT = builtins.concatStringsSep " " [
-            "User-Agent: Mozilla/5.0 (X11; Linux ${stdenv.hostPlatform.linuxArch})"
-            "AppleWebKit/537.36 (KHTML, like Gecko)"
-            "Chrome/77.0.3865.75"
-            "Safari/537.36"
-          ];
-
-          REQJSON = builtins.toJSON {
-            "firstname" = "NixOS";
-            "lastname" = "Linux";
-            "email" = "someone@nixos.org";
-            "phone" = "+31 71 452 5670";
-            "country" = "nl";
-            "street" = "-";
-            "state" = "Province of Utrecht";
-            "city" = "Utrecht";
-            "product" = PRODUCT;
-          };
-
-        } ''
-        DOWNLOADID=$(
-          curl --silent --compressed "$DOWNLOADSURL" \
-            | jq --raw-output '.downloads[] | .urls.Linux?[]? | select(.downloadTitle | test("^'"$PRODUCT $VERSION"'( Update)?$")) | .downloadId'
-        )
-        echo "downloadid is $DOWNLOADID"
-        test -n "$DOWNLOADID"
-        RESOLVEURL=$(curl \
-          --silent \
-          --header 'Host: www.blackmagicdesign.com' \
-          --header 'Accept: application/json, text/plain, */*' \
-          --header 'Origin: https://www.blackmagicdesign.com' \
-          --header "$USERAGENT" \
-          --header 'Content-Type: application/json;charset=UTF-8' \
-          --header "Referer: https://www.blackmagicdesign.com/support/download/$REFERID/Linux" \
-          --header 'Accept-Encoding: gzip, deflate, br' \
-          --header 'Accept-Language: en-US,en;q=0.9' \
-          --header 'Authority: www.blackmagicdesign.com' \
-          --header 'Cookie: _ga=GA1.2.1849503966.1518103294; _gid=GA1.2.953840595.1518103294' \
-          --data-ascii "$REQJSON" \
-          --compressed \
-          "$SITEURL/$DOWNLOADID")
-        echo "resolveurl is $RESOLVEURL"
-
-        curl \
-          --retry 3 --retry-delay 3 \
-          --header "Upgrade-Insecure-Requests: 1" \
-          --header "$USERAGENT" \
-          --header "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
-          --header "Accept-Language: en-US,en;q=0.9" \
-          --compressed \
-          "$RESOLVEURL" \
-          > $out
-      '';
+      src = /home/monoid/Downloads/DaVinci_Resolve_19.1_Linux.zip;
 
       # The unpack phase won't generate a directory
       sourceRoot = ".";
