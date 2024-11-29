@@ -55,6 +55,7 @@ in {
       mangohud # display vulkan stats
       openttd
       prismlauncher # minecraft
+      heroic # launcher for GoG, Epic etc
 
       clonehero
 
