@@ -2,7 +2,7 @@
 , lib
 , cacert
 , curl
-, fetchurl
+, requireFile
 , unzip
 , appimage-run
 , addDriverRunpath
@@ -34,7 +34,7 @@ let
   davinci = (
     stdenv.mkDerivation rec {
       pname = "davinci-resolve${lib.optionalString studioVariant "-studio"}";
-      version = "19.0.2";
+      version = "19.1";
 
       nativeBuildInputs = [
         (appimage-run.override { buildFHSEnv = buildFHSEnvChroot; } )
@@ -49,7 +49,11 @@ let
         xorg.libXxf86vm
       ];
 
-      src = /home/monoid/Downloads/DaVinci_Resolve_19.1_Linux.zip;
+      src = requireFile {
+        name = "DaVinci_Resolve_${version}_Linux.zip";
+        url = "scp://basemoid/mnt/bulkstore1/resources/cache/DaVinci_Resolve_${version}_Linux.zip";
+        sha256 = "1hl5xjlzgmamvjd0gfm6z2h6y20swakqy9vmkv65qrd52flmkgki";
+      };
 
       # The unpack phase won't generate a directory
       sourceRoot = ".";
