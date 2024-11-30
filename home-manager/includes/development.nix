@@ -18,6 +18,12 @@
     go-check
     delve  # debugger
     go-tools
+
+    # pyBadge
+    arduino
+    arduino-ide
+    arduino-language-server
+    arduino-mk
   ];
 
   programs.git = {
