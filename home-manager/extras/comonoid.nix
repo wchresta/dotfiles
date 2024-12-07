@@ -59,9 +59,9 @@ in {
       # radare2
       # radare2-cutter
 
-      gnome3.nautilus
-      gnome3.gnome-disk-utility
-      gnome3.gnome-keyring
+      nautilus
+      gnome-disk-utility
+      gnome-keyring
       # glirc  # broken
 
       s3fs
