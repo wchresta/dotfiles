@@ -56,7 +56,7 @@
     extensions = with pkgs.vscode-extensions; [
       ms-vsliveshare.vsliveshare
       ms-python.python
-      matklad.rust-analyzer
+      rust-lang.rust-analyzer
     ];
   };
 }

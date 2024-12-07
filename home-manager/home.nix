@@ -30,15 +30,15 @@
     packages = with pkgs; [
       zip
       unzip
-      gnome.file-roller
-      gnome.nautilus
+      file-roller
+      nautilus
       gtypist
       file
 
       baobab  # disk space visualization
       jellyfin-media-player
 
-      gnome.seahorse # keyring UI
+      seahorse # keyring UI
 
       # https://github.com/nix-community/home-manager/issues/3113
       dconf  # For gnome settigs to work
