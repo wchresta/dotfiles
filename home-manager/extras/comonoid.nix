@@ -67,8 +67,6 @@ in {
       s3fs
       borgbackup
 
-      davinci-resolve
-
       # chessx
       # gnuchess
       # xboard
