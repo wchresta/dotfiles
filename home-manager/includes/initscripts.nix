@@ -48,13 +48,15 @@
                 vendorHash = "";
               };
             in {
-              packages = { inherit $PROJNAME; };
-              defaultPackage = $PROJNAME;
+              packages = {
+                inherit $PROJNAME;
+                default = $PROJNAME;
+              };
 
               devShell = pkgs.mkShell {
-                inputsFrom = builtins.attrValues self.packages.''${system};
+                inputsFrom = [ $PROJNAME ];
                 buildInputs = with pkgs; [
-                  pkgs.go_1_17
+                  pkgs.go_1_22
                   pkgs.gotools
                   pkgs.golangci-lint
                   pkgs.gopls
