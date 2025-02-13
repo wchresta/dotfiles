@@ -39,6 +39,7 @@ in {
       ripgrep
       zip
       usbutils
+      signal-desktop
 
       # games
       steam
