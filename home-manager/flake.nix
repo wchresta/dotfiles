@@ -8,13 +8,15 @@
     simple-dbus-hook.url = "path:/home/monoid/src/simple-dbus-hook";
     simple-dbus-hook.inputs.nixpkgs.follows = "nixpkgs";
 
+    blender-bin.inputs.nixpkgs.follows = "nixpkgs";
+
     monoid-secrets = {
       flake = false;
       url = "path:/home/monoid/.config/nix/secrets.nix";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, monoid-secrets, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, monoid-secrets, blender-bin, ... }:
     let
       channelOverlay = args: {
           xdg.configFile."nix/inputs/nixpkgs".source = nixpkgs.outPath;
@@ -61,6 +63,8 @@
                 };
 
                 lutris = unstable.lutris;
+
+                blender = inputs.blender-bin.packages.${prev.system}.default;
               } // (
               if inputs ? light-control-flake then {
                 light-control = inputs.light-control-flake.packages.${prev.system}.light-control;
@@ -75,7 +79,9 @@
 
         nixpkgs.overlays = [
           (import ./pkgs/common-overlay.nix)
-          (final: prev: { simple-dbus-hook = inputs.simple-dbus-hook.packages.${prev.system}.default; })
+          (final: prev: {
+            simple-dbus-hook = inputs.simple-dbus-hook.packages.${prev.system}.default;
+          })
         ];
       };
     };
