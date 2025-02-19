@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   localLib = pkgs.callPackage ../lib.nix {};
@@ -90,7 +90,8 @@ in {
     ];
   };
 
-  xsession.windowManager.i3.config.keybindings = {
+  monoid.windowManager.compositor = "sway";
+  wayland.windowManager.sway.config.keybindings = {
     # Connect MOMENTUM 4
     "XF86Search" = "exec --no-startup-id ${pkgs.bluez}/bin/bluetoothctl connect 80:C3:BA:4A:A0:2A";
   };
@@ -156,7 +157,7 @@ in {
   };
 
   services.xidlehook = {
-    enable = true;
+    enable = config.monoid.windowManager.compositor == "i3";
     detect-sleep = true;
     not-when-fullscreen = true;
     not-when-audio = false;

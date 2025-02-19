@@ -78,7 +78,6 @@
   # Custom modules
   monoid = {
     windowManager.enable = true;
-    windowManager.compositor = "i3";
   };
 
   # This value determines the Home Manager release that your
