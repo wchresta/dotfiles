@@ -6,7 +6,7 @@ let
   shellAliases = let
       cfg-src = "~/src/dotfiles/home-manager";
       ehome-cmd = file: with pkgs; ''
-        git -C ${cfg-src} pull && \
+        git -C ${cfg-src} --autostash pull && \
         nvim ${cfg-src}/${file} && \
         git -C ${cfg-src}/${file} add ${cfg-src}/${file} && \
         sudo nixos-rebuild switch --update-input monoid-home --update-input light-control && \
