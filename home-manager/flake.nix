@@ -65,6 +65,8 @@
                 lutris = unstable.lutris;
 
                 blender = inputs.blender-bin.packages.${prev.system}.default;
+
+                beeref = final.callPackage ./pkgs/beeref.nix { };
               } // (
               if inputs ? light-control-flake then {
                 light-control = inputs.light-control-flake.packages.${prev.system}.light-control;

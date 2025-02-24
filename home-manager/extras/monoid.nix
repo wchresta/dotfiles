@@ -47,7 +47,9 @@ in {
       protontricks
       fceux # emulator
       # glirc  # broken
+
       blender
+      beeref
 
       vlc
 
