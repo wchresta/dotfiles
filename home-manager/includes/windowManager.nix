@@ -100,12 +100,12 @@ let
       ]
       else
       [
-        { command = "swaymsg output * bg ${emre-flower} fill"; }
+        { command = ''swaymsg "output * background ${emre-flower} fill"''; }
         { command = ''
               exec swayidle -w \
-                timeout 600 '${locker}' \
-                timeout 660 'systemctl suspend' \
-                timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+                timeout 720 '${locker}' \
+                timeout 720 'systemctl suspend' \
+                timeout 600 'swaymsg "output * dpms off" resume swaymsg "output * dpms on"' \
                 before-sleep '${locker}'
           ''; }
       ];

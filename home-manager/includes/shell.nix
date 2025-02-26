@@ -9,7 +9,7 @@ let
         git -C ${cfg-src} pull --autostash && \
         nvim ${cfg-src}/${file} && \
         git -C ${cfg-src}/${file} add ${cfg-src}/${file} && \
-        sudo nixos-rebuild switch --update-input monoid-home --update-input light-control && \
+        sudo nixos-rebuild switch --update-input monoid-home && \
         git -C ${cfg-src} commit
       '';
     in {
@@ -23,6 +23,7 @@ let
 
       ehome = ehome-cmd "";
       evim = ehome-cmd "includes/vim.nix";
+      homeswitch = "sudo nixos-rebuild switch --update-input monoid-home";
 
       enix = ''
         sudo -E nvim /etc/nixos/ && \
