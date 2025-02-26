@@ -14,6 +14,8 @@ let
   useI3 = cfg.compositor == "i3";
   useSway = cfg.compositor == "sway";
 
+  locker = if useX11 then "i3lock" else "swaylock -f -c ${gruvbox.dark1}";
+
   i3Config = rec {
     modifier = "Mod4";
 
@@ -88,8 +90,6 @@ let
         url = "https://unsplash.com/photos/EfyQXFzu8Nw/download";
         sha256 = "1ls6yg13nayjsr6i1dmi1kwhhfyidn0vjri0m076bpfjw85z9a6k";
       };
-
-      locker = if useX11 then "i3lock" else "swaylock -f -c ${gruvbox.dark1}";
     in if useX11
       then
       [
@@ -116,14 +116,12 @@ let
       workspaces = map toString [1 2 3 4 5 6 7 8 9 0];
       mkMoveCmd = (ws: {
           name = "${mod}+${ws}";
-          value = "[workspace=${ws}] move workspace to output current, workspace ${ws}";
+          value = "[workspace=${ws}] move workspace to output current; workspace ${ws}";
         });
       myMoves = builtins.listToAttrs (map mkMoveCmd workspaces);
       myWindowMoves = builtins.listToAttrs (map
         (ws: { name = "${mod}+Shift+${ws}"; value = "move window to workspace ${ws}"; })
         workspaces);
-
-      locker = if useX11 then "i3lock" else "swaylock";
     in {
       "${mod}+x" = "exec kitty";
       "${mod}+d" = ''exec "rofi -show run -modi run,drun,ssh"'';
