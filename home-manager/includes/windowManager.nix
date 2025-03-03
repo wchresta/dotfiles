@@ -179,7 +179,7 @@ in {
 
     # Enable the gnome-keyring secrets vault.
     # Will be exposed through DBus to programs willing to store secrets.
-    services.gnome-keyring.enable = true;
+    # services.gnome-keyring.enable = true;
 
     wayland.windowManager.sway = mkIf useSway {
       enable = true;
