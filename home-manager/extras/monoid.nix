@@ -50,6 +50,7 @@ in {
 
       blender
       beeref
+      bambu-studio
 
       vlc
 
