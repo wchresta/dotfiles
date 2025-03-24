@@ -51,6 +51,7 @@ in {
       blender
       beeref
       bambu-studio
+      orca-slicer
 
       vlc
 
