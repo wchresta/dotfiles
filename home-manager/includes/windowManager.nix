@@ -104,7 +104,7 @@ let
         { command = ''
               exec swayidle -w \
                 timeout 720 '${locker}' \
-                timeout 720 'systemctl suspend' \
+                timeout 880 'systemctl suspend' \
                 timeout 600 'swaymsg "output * dpms off" resume swaymsg "output * dpms on"' \
                 before-sleep '${locker}'
           ''; }
