@@ -49,6 +49,7 @@ in {
       # glirc  # broken
 
       blender
+      freecad
       beeref
       bambu-studio
       orca-slicer
