@@ -14,7 +14,7 @@ let
   useI3 = cfg.compositor == "i3";
   useSway = cfg.compositor == "sway";
 
-  locker = if useX11 then "i3lock" else "swaylock -f -c ${gruvbox.dark1}";
+  locker = if useX11 then "i3lock" else "swaylock";
 
   i3Config = rec {
     modifier = "Mod4";
@@ -101,13 +101,7 @@ let
       else
       [
         { command = ''swaymsg "output * background ${emre-flower} fill"''; }
-        { command = ''
-              exec swayidle -w \
-                timeout 720 '${locker}' \
-                timeout 880 'systemctl suspend' \
-                timeout 600 'swaymsg "output * dpms off" resume swaymsg "output * dpms on"' \
-                before-sleep '${locker}'
-          ''; }
+
       ];
 
     keybindings = let
@@ -189,9 +183,29 @@ in {
       wrapperFeatures.gtk = true;
     };
 
+    services.swayidle = {
+      enable = useSway;
+      events = [
+        { event = "before-sleep"; command = "${locker}"; }
+        { event = "lock"; command = "${locker}"; }
+      ];
+      timeouts = [
+        { timeout = 600; command = "${locker}"; }
+        { timeout = 720; command = "${pkgs.systemd}/bin/systemctl suspend"; }
+      ];
+    };
+
     # Make sure nautilus is used to open directories
     xdg.mimeApps.defaultApplications = {
       "inode/directory" = [ "org.gnome.Nautilus.desktop" ];
+    };
+
+    programs.swaylock = {
+      enable = useSway;
+      settings = {
+        color = "${gruvbox.dark1}";
+        show-failed-attempts = true;
+      };
     };
 
     programs.rofi = {
