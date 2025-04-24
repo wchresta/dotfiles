@@ -53,6 +53,7 @@ in {
       prismlauncher
 
       godot_4
+      freecad-wayland
 
       file
       # gdb
