@@ -185,6 +185,7 @@ in {
 
     services.swayidle = {
       enable = useSway;
+      extraArgs = [ "-w" "-d" ];
       events = [
         { event = "before-sleep"; command = "${locker}"; }
         { event = "lock"; command = "${locker}"; }
