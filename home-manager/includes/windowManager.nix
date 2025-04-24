@@ -14,7 +14,7 @@ let
   useI3 = cfg.compositor == "i3";
   useSway = cfg.compositor == "sway";
 
-  locker = if useX11 then "i3lock" else "swaylock";
+  locker = if useX11 then "i3lock" else "${pkgs.swaylock}/bin/swaylock";
 
   i3Config = rec {
     modifier = "Mod4";
