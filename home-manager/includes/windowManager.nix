@@ -52,8 +52,8 @@ let
         indicator = gruvbox.light2;
         text = gruvbox.light2;
       };
-
     };
+
 
     bars = [
       {
@@ -147,6 +147,15 @@ let
         "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
       }
     ) // myMoves // myWindowMoves;
+  } // mkIf useSway {
+    input = {
+      "*" = {
+        # Allow to compose umlaut with R-Ctrl
+        # https://wiki.gentoo.org/wiki/Compose_key
+        # In xserver we set this on the host.
+        xkb_options = "compose:rctrl";
+      };
+    };
   };
 in {
   options.monoid.windowManager = {
