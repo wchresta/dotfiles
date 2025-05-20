@@ -89,6 +89,14 @@ in {
       go-protobuf
       go-tools
     ];
+
+    file = localLib.makeScripts {
+      jellyfin = ''
+        systemctl --user stop swayidle.service &
+        jellyfinmediaplayer
+        systemctl --user start swayidle.service
+      '';
+    };
   };
 
   monoid.windowManager.compositor = "sway";
